@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Car Search</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <div class="input-group mb-3">
+            <input type="text" id="searchQuery" class="form-control">
+            <div class="input-group-append">
+                <button class="btn btn-outline-primary" type="button" onclick="search()">Search</button>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Model</th>
+                <th scope="col">Manufacturer</th>
+                <th scope="col">Price</th>
+                <th scope="col">Wholesale Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <template id="row-template">
+        <tr>
+            <td>id</td>
+            <td>model</td>
+            <td>manufacturer</td>
+            <td>price</td>
+            <td>wholesale price</td>
+        </tr>
+    </template>
+    <script>
+        function addRow(car) {
+            const template = document.getElementById('row-template');
+            const row = document.importNode(template.content, true);
+            const tds = row.querySelectorAll('td');
+
+            tds[0].textContent = car.id;
+            tds[1].textContent = car.model;
+            tds[2].textContent = car.manufacturer;
+            tds[3].textContent = car.price;
+            tds[4].textContent = car.wholesalePrice;
+
+            const tbody = document.querySelector('tbody');
+            tbody.appendChild(row);
+        }
+
+        function clearSearchResults() {
+            const table = document.querySelector('table');
+            for (let i = 1; i < table.rows.length; i++) {
+                table.deleteRow(i);
+            }
+        }
+
+        function search() {
+            clearSearchResults();
+            const searchQuery = document.getElementById('searchQuery').value;
+            fetch(`/cars/search?query=${searchQuery}`)
+                .then(response => response.json())
+                .then(carList => {
+                    carList.forEach(addRow);
+                });
+        }
+    </script>
+</div>
+</body>
+</html>
