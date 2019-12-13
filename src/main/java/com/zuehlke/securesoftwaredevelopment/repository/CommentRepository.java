@@ -33,7 +33,7 @@ public class CommentRepository {
 
     public List<Comment> getAll(int carId) {
         List<Comment> commentList = new ArrayList<>();
-        String query = "SELECT carId, userId, comment WHERE carId = " + carId;
+        String query = "SELECT carId, userId, comment FROM comments WHERE carId = " + carId;
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery(query)) {

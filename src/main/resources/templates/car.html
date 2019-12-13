@@ -32,6 +32,11 @@
             <button type="submit">Submit</button>
         </form>
     </div>
+    <h2>Car comments</h2>
+    <div class="form-group" th:each="comment,iter : ${comments}">
+        <b th:text="${comment.personName}"></b>
+        <textarea class="form-control" rows="3" th:id="${iter.index}" th:text="${comment.comment}" disabled></textarea>
+    </div>
 </div>
 </body>
 </html>

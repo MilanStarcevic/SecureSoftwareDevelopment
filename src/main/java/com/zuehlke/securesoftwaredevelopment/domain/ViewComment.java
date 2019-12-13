@@ -4,6 +4,11 @@ public class ViewComment {
     private String personName;
     private String comment;
 
+    public ViewComment(String personName, String comment) {
+        this.personName = personName;
+        this.comment = comment;
+    }
+
     public String getPersonName() {
         return personName;
     }
