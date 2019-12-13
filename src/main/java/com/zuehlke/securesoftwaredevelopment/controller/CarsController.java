@@ -4,10 +4,7 @@ import com.zuehlke.securesoftwaredevelopment.domain.Car;
 import com.zuehlke.securesoftwaredevelopment.repository.CarRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,5 +31,11 @@ public class CarsController {
     public String showCar(@PathVariable("id") int id, Model model) {
         model.addAttribute("car", carRepository.findById(id));
         return "car";
+    }
+
+    @PostMapping("/cars/{id}")
+    public String editCar(@PathVariable("id") int id, Car car) {
+        carRepository.update(id, car);
+        return "redirect:/cars/" + id;
     }
 }

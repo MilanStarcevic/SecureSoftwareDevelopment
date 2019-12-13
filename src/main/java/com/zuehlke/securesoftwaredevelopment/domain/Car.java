@@ -1,13 +1,13 @@
 package com.zuehlke.securesoftwaredevelopment.domain;
 
 public class Car {
-    private int id;
+    private Integer id;
     private double price;
     private double wholesalePrice;
     private String model;
     private String manufacturer;
 
-    public Car(int id, double price, double wholesalePrice, String model, String manufacturer) {
+    public Car(Integer id, double price, double wholesalePrice, String model, String manufacturer) {
         this.id = id;
         this.price = price;
         this.wholesalePrice = wholesalePrice;
@@ -15,11 +15,11 @@ public class Car {
         this.manufacturer = manufacturer;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
