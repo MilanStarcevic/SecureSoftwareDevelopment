@@ -1,9 +1,7 @@
-insert into person(name)
-values ('Petar');
-insert into person(name)
-values ('Mitar');
-insert into person(name)
-values ('Mladen');
+insert into users(id, username, password)
+values (1, 'madj', 'car'), (2, 'peter', 'security_rules'), (3, 'tom', 'guessmeifyoucan');
 
-insert into users(username, password)
-values ('madj', 'car');
+insert into persons(id, firstName, lastName, personalNumber, address)
+values (1, 'djordje', 'madic', 'jmbg', 'NBG'),
+       (2, 'Peter', 'Petigrew', '023348574839234', 'Diagon Alley'),
+       (3, 'Tom', 'Riddle', '3234989332432', 'Bulgaria');
