@@ -20,6 +20,7 @@
             <th scope="col">Last Name</th>
             <th scope="col">Personal Number</th>
             <th scope="col">Address</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -28,7 +29,7 @@
             <td th:text="${person.firstName}"></td>
             <td th:text="${person.lastName}"></td>
             <td th:text="${person.personalNumber}"></td>
-            <td th:text="${person.id}"></td>
+            <td><a th:href="@{/persons/{id}(id=${person.id})}">View profile</a></td>
         </tr>
         </tbody>
     </table>
