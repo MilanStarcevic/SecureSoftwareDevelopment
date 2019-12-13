@@ -26,6 +26,7 @@
                 <th scope="col">Manufacturer</th>
                 <th scope="col">Price</th>
                 <th scope="col">Wholesale Price</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -39,6 +40,7 @@
             <td>manufacturer</td>
             <td>price</td>
             <td>wholesale price</td>
+            <td>view profile</td>
         </tr>
     </template>
     <script>
@@ -52,6 +54,7 @@
             tds[2].textContent = car.manufacturer;
             tds[3].textContent = car.price;
             tds[4].textContent = car.wholesalePrice;
+            tds[5].innerHTML = `<a href="/cars/${car.id}">Details</a>`;
 
             const tbody = document.querySelector('tbody');
             tbody.appendChild(row);
@@ -74,7 +77,7 @@
             const searchQuery = document.getElementById('searchQuery').value;
             updateSearchTerm(searchQuery);
             clearSearchResults();
-            fetch(`/cars/search?query=${searchQuery}`)
+            fetch(`/api/cars/search?query=${searchQuery}`)
                 .then(response => response.json())
                 .then(carList => {
                     carList.forEach(addRow);

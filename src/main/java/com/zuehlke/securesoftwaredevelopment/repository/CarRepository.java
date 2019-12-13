@@ -20,6 +20,20 @@ public class CarRepository {
         this.dataSource = dataSource;
     }
 
+    public Car findById(int id) {
+        String sqlQuery = "SELECT id, price, wholesalePrice, model, manufacturer FROM cars WHERE id=" + id;
+        try (Connection connection = dataSource.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet rs = statement.executeQuery(sqlQuery)) {
+            if (rs.next()) {
+                return createCar(rs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     /**
      * @param searchQuery model or manufacturer
      * @return list of cars or empty in case of exception
@@ -33,16 +47,20 @@ public class CarRepository {
              Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery(sqlQuery)) {
             while (rs.next()) {
-                int id = rs.getInt(1);
-                double price = rs.getDouble(2);
-                double wholesalePrice = rs.getDouble(3);
-                String model = rs.getString(4);
-                String manufacturer = rs.getString(5);
-                cars.add(new Car(id, price, wholesalePrice, model, manufacturer));
+                cars.add(createCar(rs));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return cars;
+    }
+
+    private Car createCar(ResultSet rs) throws SQLException {
+        int id = rs.getInt(1);
+        double price = rs.getDouble(2);
+        double wholesalePrice = rs.getDouble(3);
+        String model = rs.getString(4);
+        String manufacturer = rs.getString(5);
+        return new Car(id, price, wholesalePrice, model, manufacturer);
     }
 }

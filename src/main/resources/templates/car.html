@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>Car details</h1>
+    <div class="row">
+        <form class="col-5">
+            <div class="form-group">
+                <label for="model">Model</label>
+                <input type="text" id="model" class="form-control" th:value="${car.model}" disabled>
+            </div>
+            <div class="form-group">
+                <label for="manufacturer">Manufacturer</label>
+                <input type="text" id="manufacturer" class="form-control" th:value="${car.manufacturer}" disabled>
+            </div>
+            <div class="form-group">
+                <label for="personalNumber">Price</label>
+                <input type="text" id="personalNumber" class="form-control" th:value="${car.price}" disabled>
+            </div>
+            <div class="form-group">
+                <label for="address">Wholesale Price</label>
+                <input type="text" id="address" class="form-control" th:value="${car.wholesalePrice}" disabled>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
