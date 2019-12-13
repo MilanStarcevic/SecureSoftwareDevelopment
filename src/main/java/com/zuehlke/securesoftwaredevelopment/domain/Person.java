@@ -5,14 +5,14 @@ public class Person {
     private String firstName;
     private String lastName;
     private String personalNumber;
-    private String streetNumber;
+    private String address;
 
-    public Person(int id, String firstName, String lastName, String personalNumber, String streetNumber) {
+    public Person(int id, String firstName, String lastName, String personalNumber, String address) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.personalNumber = personalNumber;
-        this.streetNumber = streetNumber;
+        this.address = address;
     }
 
     public int getId() {
@@ -47,11 +47,11 @@ public class Person {
         this.personalNumber = personalNumber;
     }
 
-    public String getStreetNumber() {
-        return streetNumber;
+    public String getAddress() {
+        return address;
     }
 
-    public void setStreetNumber(String streetNumber) {
-        this.streetNumber = streetNumber;
+    public void setAddress(String streetNumber) {
+        this.address = streetNumber;
     }
 }

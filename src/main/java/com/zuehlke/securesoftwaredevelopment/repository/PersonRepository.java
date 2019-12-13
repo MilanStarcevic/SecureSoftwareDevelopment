@@ -22,7 +22,7 @@ public class PersonRepository {
 
     public List<Person> getAll() {
         List<Person> personList = new ArrayList<>();
-        String query = "SELECT firstName, lastName, personalNumber, streetNumber FROM persons";
+        String query = "SELECT firstName, lastName, personalNumber, address FROM persons";
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery(query)) {
@@ -31,8 +31,8 @@ public class PersonRepository {
                 String firstName = rs.getString(2);
                 String lastName = rs.getString(3);
                 String personalNumber = rs.getString(4);
-                String streetNumber = rs.getString(5);
-                personList.add(new Person(id, firstName, lastName, personalNumber, streetNumber));
+                String address = rs.getString(5);
+                personList.add(new Person(id, firstName, lastName, personalNumber, address));
             }
         } catch (SQLException e) {
             e.printStackTrace();
