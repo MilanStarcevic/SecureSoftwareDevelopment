@@ -6,11 +6,18 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Hello world</title>
+    <title>Users</title>
 </head>
 <body>
 <div layout:fragment="content">
     <h1>Users</h1>
+
+    <div class="input-group">
+        <input type="text" id="searchInput" class="form-control" placeholder="Search...">
+        <div class="input-group-append">
+            <button id="searchButton" class="btn btn-outline-secondary" type="button">Search</button>
+        </div>
+    </div>
 
     <table class="table">
         <thead>
@@ -23,16 +30,55 @@
             <th></th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="tableContent">
         <tr th:each="person: ${persons}">
-            <th scope="row" th:text="${person.id}"></th>
+            <td th:text="${person.id}"></td>
             <td th:text="${person.firstName}"></td>
             <td th:text="${person.lastName}"></td>
             <td th:text="${person.personalNumber}"></td>
+            <td th:text="${person.address}"></td>
             <td><a th:href="@{/persons/{id}(id=${person.id})}">View profile</a></td>
         </tr>
         </tbody>
     </table>
+
+    <script>
+        window.addEventListener('load', function() {
+            document.getElementById("searchButton").addEventListener("click", function () {
+                fetch('/persons/search?searchTerm=' +  document.getElementById("searchInput").value)
+                    .then(function (result) {return result.json()})
+                    .then(function(persons) {
+                    const tableContent = document.getElementById("tableContent");
+                    tableContent.innerHTML = '';
+
+                    persons.forEach(function(person) {
+                        const tableRowElement = document.createElement("tr");
+                        let tdElement = document.createElement("td");
+                        tdElement.textContent = person.id;
+                        tableRowElement.appendChild(tdElement);
+                        tdElement = document.createElement("td");
+                        tdElement.textContent = person.firstName;
+                        tableRowElement.appendChild(tdElement);
+                        tdElement = document.createElement("td");
+                        tdElement.textContent = person.lastName;
+                        tableRowElement.appendChild(tdElement);
+                        tdElement = document.createElement("td");
+                        tdElement.textContent = person.personalNumber;
+                        tableRowElement.appendChild(tdElement);
+                        tdElement = document.createElement("td");
+                        tdElement.textContent = person.address;
+                        tableRowElement.appendChild(tdElement);
+                        tdElement = document.createElement("td");
+                        tdElement.innerHTML = '<a href="/persons/' + person.id + '">View profile</a>';
+                        tableRowElement.appendChild(tdElement);
+
+                        tableContent.appendChild(tableRowElement);
+                    });
+                });
+            });
+        });
+    </script>
 </div>
+
 </body>
 </html>
