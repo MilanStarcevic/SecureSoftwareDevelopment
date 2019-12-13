@@ -12,23 +12,24 @@
 <div layout:fragment="content">
     <h1>Car details</h1>
     <div class="row">
-        <form class="col-5">
+        <form class="col-5" method="POST" th:action="@{/cars/__${car.id}__}">
             <div class="form-group">
                 <label for="model">Model</label>
-                <input type="text" id="model" class="form-control" th:value="${car.model}" disabled>
+                <input type="text" id="model" name="model" class="form-control" th:value="${car.model}">
             </div>
             <div class="form-group">
                 <label for="manufacturer">Manufacturer</label>
-                <input type="text" id="manufacturer" class="form-control" th:value="${car.manufacturer}" disabled>
+                <input type="text" id="manufacturer" name="manufacturer" class="form-control" th:value="${car.manufacturer}">
             </div>
             <div class="form-group">
                 <label for="personalNumber">Price</label>
-                <input type="text" id="personalNumber" class="form-control" th:value="${car.price}" disabled>
+                <input type="text" id="personalNumber" name="price" class="form-control" th:value="${car.price}">
             </div>
             <div class="form-group">
                 <label for="address">Wholesale Price</label>
-                <input type="text" id="address" class="form-control" th:value="${car.wholesalePrice}" disabled>
+                <input type="text" id="address" name="wholesalePrice" class="form-control" th:value="${car.wholesalePrice}">
             </div>
+            <button type="submit">Submit</button>
         </form>
     </div>
 </div>

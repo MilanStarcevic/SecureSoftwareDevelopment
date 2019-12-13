@@ -4,10 +4,7 @@ import com.zuehlke.securesoftwaredevelopment.domain.Car;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +29,20 @@ public class CarRepository {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void update(int id, Car car) {
+        String sqlQuery = "UPDATE cars SET price = ?, wholesalePrice = ?, model = ?, manufacturer = ? WHERE id=" + id;
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+            statement.setDouble(1, car.getPrice());
+            statement.setDouble(2, car.getWholesalePrice());
+            statement.setString(3, car.getModel());
+            statement.setString(4, car.getManufacturer());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
