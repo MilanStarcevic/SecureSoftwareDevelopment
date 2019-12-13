@@ -1,6 +1,7 @@
 drop table if exists users;
 drop table if exists person;
 drop table if exists cars;
+drop table if exists comments;
 
 create table users
 (
@@ -28,4 +29,13 @@ create table cars
     model          varchar(255) NOT NULL,
     manufacturer   varchar(255) NOT NULL,
     PRIMARY KEY (ID)
-)
+);
+
+create table comments
+(
+    id             int          NOT NULL AUTO_INCREMENT,
+    carId          int          NOT NULL,
+    userId         int          NOT NULL,
+    comment        varchar(500) NOT NULL,
+    PRIMARY KEY (ID)
+);

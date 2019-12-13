@@ -11,3 +11,6 @@ values (1, 'djordje', 'madic', 'jmbg', 'NBG'),
 insert into cars(price, wholesalePrice, model, manufacturer)
 values (423, 300, 'Civic', 'Honda'),
        (350, 200, 'Focus', 'Ford');
+
+insert into comments(carId, userId, comment)
+values (1, 1, 'Honda is great!');
