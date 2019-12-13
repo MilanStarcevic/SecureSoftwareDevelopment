@@ -17,7 +17,7 @@ public class HelloWorldController {
         this.personRepository = personRepository;
     }
 
-    @GetMapping("/")
+    @GetMapping("/hello-world")
     public String helloWorld(Model model) {
         List<Person> personList = personRepository.getAll();
         model.addAttribute("personList", personList);
