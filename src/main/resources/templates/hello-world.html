@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -8,11 +9,13 @@
     <title>Hello world</title>
 </head>
 <body>
-<h1>Hello people:</h1>
-<ul>
-    <li th:each="person: ${personList}">
-        <span th:text="${person.getName()}"></span>
-    </li>
-</ul>
+<div layout:fragment="content">
+    <h1>Hello people:</h1>
+    <ul>
+        <li th:each="person: ${personList}">
+            <span th:text="${person.getName()}"></span>
+        </li>
+    </ul>
+</div>
 </body>
 </html>
