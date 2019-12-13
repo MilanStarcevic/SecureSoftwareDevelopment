@@ -35,6 +35,22 @@ public class PersonRepository {
         return personList;
     }
 
+    public List<Person> search(String searchTerm) {
+        List<Person> personList = new ArrayList<>();
+        String query = "SELECT id, firstName, lastName, personalNumber, address FROM persons WHERE UPPER(firstName) like UPPER('%" + searchTerm + "%')" +
+                " OR UPPER(lastName) like UPPER('%" + searchTerm + "%')";
+        try (Connection connection = dataSource.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet rs = statement.executeQuery(query)) {
+            while (rs.next()) {
+                personList.add(createPersonFromResultSet(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return personList;
+    }
+
     public Person get(int personId) {
         String query = "SELECT id, firstName, lastName, personalNumber, address FROM persons WHERE id = " + personId;
         try (Connection connection = dataSource.getConnection();
