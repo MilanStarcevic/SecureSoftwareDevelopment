@@ -4,10 +4,7 @@ import com.zuehlke.securesoftwaredevelopment.domain.Person;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,5 +70,21 @@ public class PersonRepository {
         String personalNumber = rs.getString(4);
         String address = rs.getString(5);
         return new Person(id, firstName, lastName, personalNumber, address);
+    }
+
+    public void update(Person person) {
+        String query = "UPDATE persons SET firstName = ?, lastName = ?, personalNumber = ?, address = ? where id = " + person.getId();
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query);
+             ) {
+            statement.setString(1, person.getFirstName());
+            statement.setString(2, person.getLastName());
+            statement.setString(3, person.getPersonalNumber());
+            statement.setString(4, person.getAddress());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

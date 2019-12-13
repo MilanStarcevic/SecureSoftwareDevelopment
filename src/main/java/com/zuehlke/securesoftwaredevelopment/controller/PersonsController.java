@@ -4,10 +4,7 @@ import com.zuehlke.securesoftwaredevelopment.domain.Person;
 import com.zuehlke.securesoftwaredevelopment.repository.PersonRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,6 +20,12 @@ public class PersonsController {
     public String person(@PathVariable int id, Model model) {
         model.addAttribute("person", personRepository.get(id));
         return "person";
+    }
+
+    @PostMapping("/persons")
+    public String updatePerson(Person person) {
+        personRepository.update(person);
+        return "redirect:/persons/" + person.getId();
     }
 
     @GetMapping("/persons")

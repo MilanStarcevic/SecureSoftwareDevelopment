@@ -12,23 +12,25 @@
 <div layout:fragment="content">
     <h1>Profile</h1>
     <div class="row">
-        <form class="col-5">
+        <form method="POST" action="/persons" class="col-5">
             <div class="form-group">
                 <label for="firstName">First Name</label>
-                <input type="text" name="firstName" class="form-control" id="firstName" th:value="${person.firstName}" disabled>
+                <input type="text" name="firstName" class="form-control" id="firstName" th:value="${person.firstName}">
             </div>
             <div class="form-group">
                 <label for="lastName">Last Name</label>
-                <input type="text" name="lastName" class="form-control" id="lastName" th:value="${person.lastName}" disabled>
+                <input type="text" name="lastName" class="form-control" id="lastName" th:value="${person.lastName}">
             </div>
             <div class="form-group">
                 <label for="personalNumber">Personal Number</label>
-                <input type="text" name="personalNumber" class="form-control" id="personalNumber" th:value="${person.personalNumber}" disabled>
+                <input type="text" name="personalNumber" class="form-control" id="personalNumber" th:value="${person.personalNumber}">
             </div>
             <div class="form-group">
                 <label for="address">Address</label>
-                <input type="text" name="address" class="form-control" id="address" th:value="${person.address}" disabled>
+                <input type="text" name="address" class="form-control" id="address" th:value="${person.address}">
             </div>
+            <input type="hidden" name="id" class="form-control" id="id" th:value="${person.id}">
+            <button type="submit" class="btn btn-primary">Save</button>
         </form>
     </div>
 </div>
