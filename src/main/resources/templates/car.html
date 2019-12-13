@@ -37,6 +37,34 @@
         <b th:text="${comment.personName}"></b>
         <textarea class="form-control" rows="3" th:id="${iter.index}" th:text="${comment.comment}" disabled></textarea>
     </div>
+    <div class="form-group">
+        <label for="addComment">Add comment</label>
+        <textarea class="form-control" id="addComment" rows="3" placeholder="Comment..."></textarea>
+        <button id="createComment" class="btn btn-primary mt-2">Create comment</button>
+    </div>
+
+    <script th:inline="javascript">
+        const carId = [[${car.id}]];
+    </script>
+
+    <script>
+        window.addEventListener('load', function() {
+            document.getElementById("createComment").addEventListener("click", function () {
+                const comment = document.getElementById("addComment").value;
+
+                fetch('/comments', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        carId: carId,
+                        comment: comment
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(function() { window.location.reload(); });
+            });
+        });
+    </script>
 </div>
 </body>
 </html>

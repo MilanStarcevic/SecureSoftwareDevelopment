@@ -2,7 +2,7 @@ package com.zuehlke.securesoftwaredevelopment.domain;
 
 public class Comment {
     private int carId;
-    private int userId;
+    private Integer userId;
     private String comment;
 
     public Comment(int carId, int userId, String comment) {
