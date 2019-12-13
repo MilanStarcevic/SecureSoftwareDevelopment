@@ -17,6 +17,7 @@
                 <button class="btn btn-outline-primary" type="button" onclick="search()">Search</button>
             </div>
         </div>
+        <p class="invisible">You searched for: <span id="searchTerm"></span></p>
         <table class="table">
             <thead>
             <tr>
@@ -63,9 +64,16 @@
             }
         }
 
+        function updateSearchTerm(searchQuery) {
+            const searchTerm = document.getElementById('searchTerm');
+            searchTerm.textContent = searchQuery;
+            searchTerm.parentElement.classList.remove('invisible');
+        }
+
         function search() {
-            clearSearchResults();
             const searchQuery = document.getElementById('searchQuery').value;
+            updateSearchTerm(searchQuery);
+            clearSearchResults();
             fetch(`/cars/search?query=${searchQuery}`)
                 .then(response => response.json())
                 .then(carList => {
