@@ -35,7 +35,7 @@
     <h2>Car comments</h2>
     <div class="form-group" th:each="comment,iter : ${comments}">
         <b th:text="${comment.personName}"></b>
-        <textarea class="form-control" rows="3" th:id="${iter.index}" th:text="${comment.comment}" disabled></textarea>
+        <div class="form-control" th:id="${iter.index}" th:utext="${comment.comment}" disabled></div>
     </div>
     <div class="form-group">
         <label for="addComment">Add comment</label>
