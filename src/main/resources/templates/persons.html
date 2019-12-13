@@ -18,6 +18,7 @@
             <button id="searchButton" class="btn btn-outline-secondary" type="button">Search</button>
         </div>
     </div>
+    <div class="invisible" id="searchContainer">You searched for <span id="searchTerm"></span></div>
 
     <table class="table">
         <thead>
@@ -45,7 +46,9 @@
     <script>
         window.addEventListener('load', function() {
             document.getElementById("searchButton").addEventListener("click", function () {
-                fetch('/persons/search?searchTerm=' +  document.getElementById("searchInput").value)
+                const searchTerm = document.getElementById("searchInput").value;
+
+                fetch('/persons/search?searchTerm=' + searchTerm)
                     .then(function (result) {return result.json()})
                     .then(function(persons) {
                     const tableContent = document.getElementById("tableContent");
@@ -74,6 +77,9 @@
 
                         tableContent.appendChild(tableRowElement);
                     });
+
+                    document.getElementById('searchContainer').className = '';
+                    document.getElementById('searchTerm').innerHTML = searchTerm;
                 });
             });
         });
