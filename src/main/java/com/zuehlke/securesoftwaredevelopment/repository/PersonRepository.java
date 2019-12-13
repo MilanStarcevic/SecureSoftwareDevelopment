@@ -22,7 +22,7 @@ public class PersonRepository {
 
     public List<Person> getAll() {
         List<Person> personList = new ArrayList<>();
-        String query = "SELECT firstName, lastName, personalNumber, address FROM persons";
+        String query = "SELECT id, firstName, lastName, personalNumber, address FROM persons";
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery(query)) {
