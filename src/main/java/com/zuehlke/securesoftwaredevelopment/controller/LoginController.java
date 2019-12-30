@@ -24,7 +24,7 @@ public class LoginController {
     public String login(LoginForm loginForm, Model model) {
         boolean validCredentials = userRepository.validCredentials(loginForm.getUsername(), loginForm.getPassword());
         if (validCredentials) {
-            return "home";
+            return "cars";
         }
         model.addAttribute("error", "No user");
         return "login";
