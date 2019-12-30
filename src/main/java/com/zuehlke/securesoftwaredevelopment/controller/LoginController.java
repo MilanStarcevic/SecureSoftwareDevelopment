@@ -1,34 +1,13 @@
 package com.zuehlke.securesoftwaredevelopment.controller;
 
-import com.zuehlke.securesoftwaredevelopment.repository.UserRepository;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import javax.servlet.http.HttpSession;
 
 @Controller
 public class LoginController {
 
-    private UserRepository userRepository;
-
-    public LoginController(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
-    @GetMapping("/")
+    @GetMapping("/login")
     public String showLoginForm() {
-        return "login";
-    }
-
-    @PostMapping("/login")
-    public String login(LoginForm loginForm, Model model, HttpSession httpSession) {
-        boolean validCredentials = userRepository.validCredentials(loginForm.getUsername(), loginForm.getPassword());
-        if (validCredentials) {
-            return "cars";
-        }
-        model.addAttribute("error", "No user");
         return "login";
     }
 }

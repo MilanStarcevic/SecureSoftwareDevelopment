@@ -15,11 +15,10 @@
 </head>
 <body>
 <div class="d-flex flex-column justify-content-around align-items-center vh-100">
-    <form class="d-flex flex-column justify-content-around" style="height: 200px" method="POST" action="/login">
+    <form class="d-flex flex-column justify-content-around" style="height: 200px" method="POST" action="/perform-login">
         <input type="text" class="form-control" name="username" placeholder="Username" required>
         <input type="text" class="form-control" name="password" placeholder="Password" required>
         <button type="submit" class="btn btn-primary">Submit</button>
-        <span th:if="${error}" th:text="${error}"></span>
     </form>
 </div>
 </body>
