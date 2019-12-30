@@ -66,6 +66,21 @@ public class CarRepository {
         return cars;
     }
 
+    public List<Car> getAll() {
+        List<Car> cars = new ArrayList<>();
+        String sqlQuery = "SELECT id, price, wholesalePrice, model, manufacturer FROM cars";
+        try (Connection connection = dataSource.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet rs = statement.executeQuery(sqlQuery)) {
+            while (rs.next()) {
+                cars.add(createCar(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cars;
+    }
+
     private Car createCar(ResultSet rs) throws SQLException {
         int id = rs.getInt(1);
         double price = rs.getDouble(2);

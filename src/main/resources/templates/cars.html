@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
@@ -10,6 +10,7 @@
 </head>
 <body>
 <div layout:fragment="content">
+    <h1>Cars</h1>
     <div class="container">
         <div class="input-group mb-3">
             <input type="text" id="searchQuery" class="form-control">
@@ -21,7 +22,7 @@
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">Id</th>
+                <th scope="col">#</th>
                 <th scope="col">Model</th>
                 <th scope="col">Manufacturer</th>
                 <th scope="col">Price</th>
@@ -29,7 +30,15 @@
                 <th></th>
             </tr>
             </thead>
-            <tbody>
+            <tbody id="carsTableContent">
+            <tr th:each="car: ${cars}">
+                <td th:text="${car.id}"></td>
+                <td th:text="${car.model}"></td>
+                <td th:text="${car.manufacturer}"></td>
+                <td th:text="${car.price}"></td>
+                <td th:text="${car.wholesalePrice}"></td>
+                <td><a th:href="@{/cars/__${car.id}__}">Details</a></td>
+            </tr>
             </tbody>
         </table>
     </div>
@@ -62,8 +71,8 @@
 
         function clearSearchResults() {
             const table = document.querySelector('table');
-            for (let i = 1; i < table.rows.length; i++) {
-                table.deleteRow(i);
+            while (table.rows.length > 1) {
+                table.deleteRow(1);
             }
         }
 
