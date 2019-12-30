@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class LoginController {
 
@@ -21,7 +23,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(LoginForm loginForm, Model model) {
+    public String login(LoginForm loginForm, Model model, HttpSession httpSession) {
         boolean validCredentials = userRepository.validCredentials(loginForm.getUsername(), loginForm.getPassword());
         if (validCredentials) {
             return "cars";
