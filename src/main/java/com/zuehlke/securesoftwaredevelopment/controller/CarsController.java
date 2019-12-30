@@ -26,7 +26,7 @@ public class CarsController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping("/cars")
+    @GetMapping(value = {"/cars", "/"})
     public String showSearch(Model model) {
         model.addAttribute("cars", carRepository.getAll());
         return "cars";
