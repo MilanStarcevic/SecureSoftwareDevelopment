@@ -63,6 +63,17 @@ public class PersonRepository {
         return null;
     }
 
+    public void delete(int personId) {
+        String query = "DELETE FROM persons WHERE id = " + personId;
+        try (Connection connection = dataSource.getConnection();
+             Statement statement = connection.createStatement();
+        ) {
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private Person createPersonFromResultSet(ResultSet rs) throws SQLException {
         int id = rs.getInt(1);
         String firstName = rs.getString(2);

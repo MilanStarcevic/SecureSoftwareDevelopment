@@ -28,4 +28,15 @@ public class UserRepository {
         }
         return false;
     }
+
+    public void delete(int userId) {
+        String query = "DELETE FROM users WHERE id = " + userId;
+        try (Connection connection = dataSource.getConnection();
+             Statement statement = connection.createStatement();
+        ) {
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
