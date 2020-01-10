@@ -1,9 +1,6 @@
 package com.zuehlke.securesoftwaredevelopment.controller;
 
-import com.zuehlke.securesoftwaredevelopment.domain.Car;
-import com.zuehlke.securesoftwaredevelopment.domain.Comment;
-import com.zuehlke.securesoftwaredevelopment.domain.Person;
-import com.zuehlke.securesoftwaredevelopment.domain.ViewComment;
+import com.zuehlke.securesoftwaredevelopment.domain.*;
 import com.zuehlke.securesoftwaredevelopment.repository.CarRepository;
 import com.zuehlke.securesoftwaredevelopment.repository.CommentRepository;
 import com.zuehlke.securesoftwaredevelopment.repository.PersonRepository;
@@ -59,5 +56,32 @@ public class CarsController {
     public String editCar(@PathVariable("id") int id, Car car) {
         carRepository.update(id, car);
         return "redirect:/cars/" + id;
+    }
+
+    @GetMapping("/buy-car/{id}")
+    public String showBuyCar(
+            @PathVariable("id") int id,
+            @RequestParam(required = false) boolean addressError,
+            @RequestParam(required = false) boolean bought,
+            Model model) {
+
+        model.addAttribute("id", id);
+
+        if (addressError) {
+            model.addAttribute("addressError", true);
+        } else if (bought) {
+            model.addAttribute("bought", true);
+        }
+
+        return "buy-car";
+    }
+
+    @PostMapping("/buy-car/{id}")
+    public String buyCar(@PathVariable("id") int id, Address address, Model model) {
+        if (address.getAddress().length() < 10) {
+            return String.format("redirect:/buy-car/%s?addressError=true", id);
+        }
+
+        return String.format("redirect:/buy-car/%s?bought=true", id);
     }
 }

@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Buy Car</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>Buy car</h1>
+    <div class="row" th:unless="${bought == true}">
+        <form class="col-5" method="POST" th:action="@{/buy-car/__${id}__}">
+            <div class="form-group">
+                <label for="address">Delivery address</label>
+                <input type="text" id="address" name="address" class="form-control">
+            </div>
+            <div class="text-danger mb-1" th:if="${addressError == true}">Address has to be at least 10 characters!</div>
+            <button type="submit" class="btn btn-success">Confirm and Buy</button>
+        </form>
+    </div>
+    <div class="text-success" th:if="${bought == true}">Congratulations! Car successfully bought!</div>
+</div>
+</body>
+</html>
