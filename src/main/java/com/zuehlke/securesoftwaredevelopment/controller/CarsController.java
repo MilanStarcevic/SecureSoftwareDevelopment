@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class CarsController {
 
     @GetMapping(value = "/api/cars/search", produces = "application/json")
     @ResponseBody
-    public List<Car> search(@RequestParam("query") String query) {
+    public List<Car> search(@RequestParam("query") String query) throws SQLException {
         return carRepository.search(query);
     }
 

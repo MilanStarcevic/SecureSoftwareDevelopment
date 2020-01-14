@@ -49,7 +49,7 @@ public class CarRepository {
      * @param searchQuery model or manufacturer
      * @return list of cars or empty in case of exception
      */
-    public List<Car> search(String searchQuery) {
+    public List<Car> search(String searchQuery) throws SQLException {
         List<Car> cars = new ArrayList<>();
         String sqlQuery =
                 "SELECT id, price, wholesalePrice, model, manufacturer FROM cars WHERE UPPER(model) LIKE UPPER('%" + searchQuery + "%')" +
@@ -60,8 +60,6 @@ public class CarRepository {
             while (rs.next()) {
                 cars.add(createCar(rs));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return cars;
     }

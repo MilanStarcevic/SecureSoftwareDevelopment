@@ -19,6 +19,8 @@
             </div>
         </div>
         <p class="invisible">You searched for: <span id="searchTerm"></span></p>
+        <p class="invisible text-danger" id="carSearchErrorMessage">Sorry, we are facing some problems! Please try again
+            later.</p>
         <table class="table">
             <thead>
             <tr>
@@ -82,15 +84,42 @@
             searchTerm.parentElement.classList.remove('invisible');
         }
 
+        function showErrorMessage() {
+            const errorMessage = document.getElementById('carSearchErrorMessage');
+            errorMessage.classList.remove('invisible');
+        }
+
+        function hideErrorMessage() {
+            const errorMessage = document.getElementById('carSearchErrorMessage');
+            errorMessage.classList.add('invisible');
+        }
+
+        function handleErrors(response) {
+            if (!response.ok) {
+                throw new Error(response.statusText);
+            }
+            return response;
+        }
+
+        function getSearchQuery() {
+            return document.getElementById('searchQuery').value;
+        }
+
+        function updateSearchResults(carList) {
+            carList.forEach(addRow);
+        }
+
         function search() {
-            const searchQuery = document.getElementById('searchQuery').value;
-            updateSearchTerm(searchQuery);
             clearSearchResults();
+            hideErrorMessage();
+
+            const searchQuery = getSearchQuery();
+            updateSearchTerm(searchQuery);
             fetch(`/api/cars/search?query=${searchQuery}`)
+                .then(handleErrors)
                 .then(response => response.json())
-                .then(carList => {
-                    carList.forEach(addRow);
-                });
+                .then(updateSearchResults)
+                .catch(showErrorMessage);
         }
     </script>
 </div>
