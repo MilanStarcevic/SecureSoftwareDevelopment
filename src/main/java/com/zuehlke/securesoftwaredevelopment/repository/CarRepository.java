@@ -17,7 +17,7 @@ public class CarRepository {
         this.dataSource = dataSource;
     }
 
-    public Car findById(int id) {
+    public Car findById(String id) {
         String sqlQuery = "SELECT id, price, wholesalePrice, model, manufacturer FROM cars WHERE id=" + id;
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement();

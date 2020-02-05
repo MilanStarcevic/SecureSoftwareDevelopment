@@ -24,7 +24,7 @@ public class CarsController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping(value = {"/cars", "/"})
+    @GetMapping("/")
     public String showSearch(Model model) {
         model.addAttribute("cars", carRepository.getAll());
         return "cars";
@@ -36,8 +36,13 @@ public class CarsController {
         return carRepository.search(query);
     }
 
-    @GetMapping("/cars/{id}")
-    public String showCar(@PathVariable("id") int id, Model model) {
+    @GetMapping("/cars")
+    public String showCar(@RequestParam("id") String id, Model model) {
+        if (id == null) {
+            model.addAttribute("cars", carRepository.getAll());
+            return "cars";
+        }
+
         model.addAttribute("car", carRepository.findById(id));
         List<Comment> comments = commentRepository.getAll(id);
 

@@ -31,7 +31,7 @@ public class CommentRepository {
         }
     }
 
-    public List<Comment> getAll(int carId) {
+    public List<Comment> getAll(String carId) {
         List<Comment> commentList = new ArrayList<>();
         String query = "SELECT carId, userId, comment FROM comments WHERE carId = " + carId;
         try (Connection connection = dataSource.getConnection();
