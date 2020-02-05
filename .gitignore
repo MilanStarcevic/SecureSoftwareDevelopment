@@ -32,3 +32,6 @@ build/
 
 ### Node ###
 node_modules
+
+### Run configurations ###
+!.idea/runConfigurations/SonarQube_Analysis.xml
