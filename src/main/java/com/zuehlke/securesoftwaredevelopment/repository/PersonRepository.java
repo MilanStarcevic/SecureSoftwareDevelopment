@@ -34,8 +34,8 @@ public class PersonRepository {
 
     public List<Person> search(String searchTerm) {
         List<Person> personList = new ArrayList<>();
-        String query = "SELECT id, firstName, lastName, personalNumber, address FROM persons WHERE UPPER(firstName) like UPPER(\"%" + searchTerm + "%\")" +
-                " OR UPPER(lastName) like UPPER(\"%" + searchTerm + "%\")";
+        String query = "SELECT id, firstName, lastName, personalNumber, address FROM persons WHERE UPPER(firstName) like UPPER('%" + searchTerm + "%')" +
+                " OR UPPER(lastName) like UPPER('%" + searchTerm + "%')";
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery(query)) {
@@ -88,7 +88,7 @@ public class PersonRepository {
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(query);
-        ) {
+             ) {
             statement.setString(1, person.getFirstName());
             statement.setString(2, person.getLastName());
             statement.setString(3, person.getPersonalNumber());
