@@ -15,7 +15,8 @@
         <div class="input-group mb-3">
             <input type="text" id="searchQuery" class="form-control">
             <div class="input-group-append">
-                <button class="btn btn-outline-primary" type="button" onclick="search()">Search</button>
+                <button class="btn btn-outline-primary" id="carSearchButton" type="button" onclick="search()">Search
+                </button>
             </div>
         </div>
         <p class="invisible">You searched for: <span id="searchTerm"></span></p>
@@ -92,6 +93,15 @@
                     carList.forEach(addRow);
                 });
         }
+
+        function onEnter(event) {
+            if (event.key === 'Enter') {
+                search();
+            }
+        }
+
+        const searchQueryInput = document.getElementById('searchQuery');
+        searchQueryInput.addEventListener('keyup', onEnter);
     </script>
 </div>
 </body>
