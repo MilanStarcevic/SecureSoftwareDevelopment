@@ -40,7 +40,7 @@
                 <td th:text="${car.manufacturer}"></td>
                 <td th:text="${car.price}"></td>
                 <td th:text="${car.wholesalePrice}"></td>
-                <td><a th:href="@{/cars/__${car.id}__}">Details</a></td>
+                <td><a th:href="@{/cars(id=${car.id})}">Details</a></td>
             </tr>
             </tbody>
         </table>
@@ -66,7 +66,7 @@
             tds[2].textContent = car.manufacturer;
             tds[3].textContent = car.price;
             tds[4].textContent = car.wholesalePrice;
-            tds[5].innerHTML = `<a href="/cars/${car.id}">Details</a>`;
+            tds[5].innerHTML = `<a href="/cars?id=${car.id}">Details</a>`;
 
             const tbody = document.querySelector('tbody');
             tbody.appendChild(row);
