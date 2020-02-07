@@ -2,6 +2,7 @@ package com.zuehlke.securesoftwaredevelopment.controller;
 
 import com.zuehlke.securesoftwaredevelopment.domain.Comment;
 import com.zuehlke.securesoftwaredevelopment.repository.CommentRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,8 +16,10 @@ public class CommentController {
     }
 
     @PostMapping(value = "/comments", consumes = "application/json")
-    public void createComment(@RequestBody Comment comment) {
+    public ResponseEntity<Void> createComment(@RequestBody Comment comment) {
         comment.setUserId(1); // TODO: set currently logged in user
         commentRepository.create(comment);
+
+        return ResponseEntity.noContent().build();
     }
 }

@@ -3,6 +3,7 @@ package com.zuehlke.securesoftwaredevelopment.controller;
 import com.zuehlke.securesoftwaredevelopment.domain.Person;
 import com.zuehlke.securesoftwaredevelopment.repository.PersonRepository;
 import com.zuehlke.securesoftwaredevelopment.repository.UserRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,9 +27,11 @@ public class PersonsController {
     }
 
     @DeleteMapping("/persons/{id}")
-    public void person(@PathVariable int id) {
+    public ResponseEntity<Void> person(@PathVariable int id) {
         personRepository.delete(id);
         userRepository.delete(id);
+
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/persons")
