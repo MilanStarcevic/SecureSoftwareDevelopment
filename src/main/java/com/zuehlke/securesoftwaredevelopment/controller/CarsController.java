@@ -37,7 +37,7 @@ public class CarsController {
     }
 
     @GetMapping("/cars")
-    public String showCar(@RequestParam("id") String id, Model model) {
+    public String showCar(@RequestParam(name = "id", required = false) String id, Model model) {
         if (id == null) {
             model.addAttribute("cars", carRepository.getAll());
             return "cars";
