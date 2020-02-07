@@ -61,7 +61,7 @@ public class CarsController {
     @PostMapping("/cars/{id}")
     public String editCar(@PathVariable("id") int id, Car car) {
         carRepository.update(id, car);
-        return "redirect:/cars/" + id;
+        return "redirect:/cars?id=" + id;
     }
 
     @GetMapping("/buy-car/{id}")
