@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 public class CarRepository {
 
+    private static final String CARS_TABLE = "cars";
     private DataSource dataSource;
 
     public CarRepository(DataSource dataSource) {
@@ -66,7 +67,7 @@ public class CarRepository {
 
     public List<Car> getAll() {
         List<Car> cars = new ArrayList<>();
-        String sqlQuery = "SELECT id, price, wholesalePrice, model, manufacturer FROM cars";
+        String sqlQuery = "SELECT id, price, wholesalePrice, model, manufacturer FROM " + CARS_TABLE;
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery(sqlQuery)) {
