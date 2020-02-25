@@ -31,6 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/cars")
                 .failureUrl("/login?error");
 
+        // We need this one in order to access h2-console
         http.headers().frameOptions().sameOrigin();
     }
 
