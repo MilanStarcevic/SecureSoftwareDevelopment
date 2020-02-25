@@ -30,6 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/perform-login")
                 .defaultSuccessUrl("/cars")
                 .failureUrl("/login?error");
+
+        http.headers().frameOptions().sameOrigin();
     }
 
     @Override
