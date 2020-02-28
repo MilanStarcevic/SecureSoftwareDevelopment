@@ -1,5 +1,6 @@
 package com.zuehlke.securesoftwaredevelopment.config;
 
+import com.zuehlke.securesoftwaredevelopment.repository.HashedUserRepository;
 import com.zuehlke.securesoftwaredevelopment.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +36,7 @@ public class DatabaseAuthenticationProvider implements AuthenticationProvider {
 
         LOG.info("Logging in as {}/{}", username, password);
 
-        boolean success = userRepository.validCredentials(username, password);
+        boolean success = validCredentials(username, password);
         if (success) {
             List<GrantedAuthority> authorities = new ArrayList<>();
             authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
@@ -48,5 +49,9 @@ public class DatabaseAuthenticationProvider implements AuthenticationProvider {
     @Override
     public boolean supports(Class<?> authentication) {
         return authentication.equals(UsernamePasswordAuthenticationToken.class);
+    }
+
+    private boolean validCredentials(String username, String password) {
+        return userRepository.validCredentials(username, password);
     }
 }
