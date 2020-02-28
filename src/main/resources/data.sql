@@ -7,7 +7,7 @@ insert into hashedUsers(id, username, passwordHash, salt)
 values (1, 'milan', '3+thm5xNrzwp8/uQ1vxIe6d/K3HoRAeyebX3xEj8SM4=', 'u1NtkyeLp77WDcL4f6EYgQ==');
 
 insert into persons(id, firstName, lastName, personalNumber, address)
-values (1, 'bruce', 'wayne', 'jmbg', 'NBG'),
+values (1, 'bruce', 'wayne', '1203992441123', 'NBG'),
        (2, 'Peter', 'Petigrew', '023348574839234', 'Diagon Alley'),
        (3, 'Tom', 'Riddle', '3234989332432', 'Bulgaria');
 
