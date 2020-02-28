@@ -11,6 +11,15 @@ create table users
     PRIMARY KEY (ID)
 );
 
+create table hashedUsers
+(
+    id       int          NOT NULL AUTO_INCREMENT,
+    username varchar(255) not null,
+    passwordHash varchar(64) not null,
+    salt varchar(64) not null,
+    PRIMARY KEY (ID)
+);
+
 create table persons
 (
     id             int          NOT NULL AUTO_INCREMENT,

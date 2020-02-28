@@ -3,6 +3,9 @@ values (1, 'madj', 'car'),
        (2, 'peter', 'security_rules'),
        (3, 'tom', 'guessmeifyoucan');
 
+insert into hashedUsers(id, username, passwordHash, salt)
+values (1, 'milan', '3+thm5xNrzwp8/uQ1vxIe6d/K3HoRAeyebX3xEj8SM4=', 'u1NtkyeLp77WDcL4f6EYgQ==');
+
 insert into persons(id, firstName, lastName, personalNumber, address)
 values (1, 'djordje', 'madic', 'jmbg', 'NBG'),
        (2, 'Peter', 'Petigrew', '023348574839234', 'Diagon Alley'),
