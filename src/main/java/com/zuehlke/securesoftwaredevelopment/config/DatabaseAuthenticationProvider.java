@@ -23,7 +23,7 @@ public class DatabaseAuthenticationProvider implements AuthenticationProvider {
 
     private final UserRepository userRepository;
 
-    public DatabaseAuthenticationProvider(UserRepository userRepository, HashedUserRepository hashedUserRepository) {
+    public DatabaseAuthenticationProvider(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
