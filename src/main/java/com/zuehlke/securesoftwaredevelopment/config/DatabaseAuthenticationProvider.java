@@ -22,6 +22,8 @@ public class DatabaseAuthenticationProvider implements AuthenticationProvider {
 
     private final UserRepository userRepository;
 
+    private static final String PASSWORD_WRONG_MESSAGE = "Authentication failed for username='%s',password='%s'";
+
     public DatabaseAuthenticationProvider(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -40,7 +42,7 @@ public class DatabaseAuthenticationProvider implements AuthenticationProvider {
             return new UsernamePasswordAuthenticationToken(username, password, authorities);
         }
 
-        throw new BadCredentialsException(String.format("Authentication failed for username='%s',password='%s'", username, password));
+        throw new BadCredentialsException(String.format(PASSWORD_WRONG_MESSAGE, username, password));
     }
 
     @Override
