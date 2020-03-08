@@ -4,7 +4,6 @@
 
 * JAVA 8 SDK
 * JAVA 8 Runtime
-* PostgreSQL
 * Node.js
 * GIT
 * OWASP ZAP
