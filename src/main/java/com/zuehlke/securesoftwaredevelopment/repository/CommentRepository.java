@@ -4,7 +4,10 @@ import com.zuehlke.securesoftwaredevelopment.domain.Comment;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,15 +20,13 @@ public class CommentRepository {
     }
 
     public void create(Comment comment) {
-        String query = "insert into comments(carId, userId, comment) values (?, ?, ?)";
+        String query = "insert into comments(carId, userId, comment) " +
+                "values (" + comment.getCarId() + ", " + comment.getUserId() + ", '" + comment.getComment() + "')";
 
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query);
+             Statement statement = connection.createStatement();
         ) {
-            statement.setInt(1, comment.getCarId());
-            statement.setInt(2, comment.getUserId());
-            statement.setString(3, comment.getComment());
-            statement.executeUpdate();
+            statement.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }
