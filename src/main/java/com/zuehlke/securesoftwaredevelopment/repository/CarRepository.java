@@ -53,7 +53,7 @@ public class CarRepository {
     public List<Car> search(String searchQuery) throws SQLException {
         List<Car> cars = new ArrayList<>();
         String sqlQuery =
-                "SELECT id, price, wholesalePrice, model, manufacturer FROM cars WHERE UPPER(model) LIKE UPPER('%" + searchQuery + "%')" +
+                "SELECT id, price, wholesalePrice, model, manufacturer FROM cars WHERE UPPER(model) LIKE UPPER('%%')" +
                         "OR UPPER(manufacturer) LIKE UPPER('%" + searchQuery + "%')";
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement();
