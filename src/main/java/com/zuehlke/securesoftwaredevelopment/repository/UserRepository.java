@@ -3,10 +3,7 @@ package com.zuehlke.securesoftwaredevelopment.repository;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 @Repository
 public class UserRepository {
@@ -19,11 +16,17 @@ public class UserRepository {
 
     public boolean validCredentials(String username, String password) {
         String query = "SELECT username FROM users WHERE username='" + username + "' AND password='" + password + "'";
-        try (Connection connection = dataSource.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet rs = statement.executeQuery(query)) {
-            return rs.next();
-        } catch (SQLException e) {
+        String prep_query = "SELECT username FROM users WHERE username= ? AND password= ? ";
+
+        try (Connection connection = dataSource.getConnection())
+             {
+                 PreparedStatement preparedStatement = connection.prepareStatement(prep_query);
+                 preparedStatement.setString(1, username);
+                 preparedStatement.setString(2, password);
+                 ResultSet rs = preparedStatement.executeQuery();
+
+                 return rs.next();
+             } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
