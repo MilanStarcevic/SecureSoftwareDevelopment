@@ -15,21 +15,29 @@
         <form class="col-5" method="POST" th:action="@{/cars/__${car.id}__}">
             <div class="form-group">
                 <label for="model">Model</label>
-                <input type="text" id="model" name="model" class="form-control" th:value="${car.model}">
+                <input type="text" id="model" name="model" class="form-control" th:value="${car.model}"
+                       th:disabled="${not #authorization.expression('hasAuthority(''CAR_DETAILS_EDIT'')')}">
             </div>
             <div class="form-group">
                 <label for="manufacturer">Manufacturer</label>
-                <input type="text" id="manufacturer" name="manufacturer" class="form-control" th:value="${car.manufacturer}">
+                <input type="text" id="manufacturer" name="manufacturer" class="form-control"
+                       th:value="${car.manufacturer}"
+                       th:disabled="${not #authorization.expression('hasAuthority(''CAR_DETAILS_EDIT'')')}">
             </div>
             <div class="form-group">
                 <label for="price">Price</label>
-                <input type="text" id="price" name="price" class="form-control" th:value="${car.price}">
+                <input type="text" id="price" name="price" class="form-control" th:value="${car.price}"
+                       th:disabled="${not #authorization.expression('hasAuthority(''CAR_DETAILS_EDIT'')')}">
             </div>
             <div class="form-group">
                 <label for="wholesalePrice">Wholesale Price</label>
-                <input type="text" id="wholesalePrice" name="wholesalePrice" class="form-control" th:value="${car.wholesalePrice}">
+                <input type="text" id="wholesalePrice" name="wholesalePrice" class="form-control"
+                       th:value="${car.wholesalePrice}"
+                       th:disabled="${not #authorization.expression('hasAuthority(''CAR_DETAILS_EDIT'')')}">
             </div>
-            <button type="submit" class="btn btn-primary">Save</button>
+            <div sec:authorize="hasAuthority('CAR_DETAILS_EDIT')">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
         </form>
     </div>
     <div sec:authorize="hasAuthority('CAN_BUY_CAR')" class="mt-2 mb-2">
@@ -51,7 +59,7 @@
     </script>
 
     <script>
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function () {
             document.getElementById("createComment").addEventListener("click", function () {
                 const comment = document.getElementById("addComment").value;
 
@@ -64,7 +72,9 @@
                     headers: {
                         'Content-Type': 'application/json'
                     }
-                }).then(function() { window.location.reload(); });
+                }).then(function () {
+                    window.location.reload();
+                });
             });
         });
     </script>
