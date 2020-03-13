@@ -1,5 +1,6 @@
 package com.zuehlke.securesoftwaredevelopment.repository;
 
+import com.zuehlke.securesoftwaredevelopment.domain.User;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -15,6 +16,23 @@ public class UserRepository {
 
     public UserRepository(DataSource dataSource) {
         this.dataSource = dataSource;
+    }
+
+    public User findByUsername(String username) {
+        String query = "SELECT id, username, password FROM users WHERE username='" + username + "'";
+        try (Connection connection = dataSource.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet rs = statement.executeQuery(query)) {
+            if (rs.next()) {
+                int id = rs.getInt(1);
+                String username1 = rs.getString(2);
+                String password = rs.getString(3);
+                return new User(id, username1, password);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public boolean validCredentials(String username, String password) {
