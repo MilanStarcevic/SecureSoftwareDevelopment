@@ -1,12 +1,12 @@
 package com.zuehlke.securesoftwaredevelopment.config;
 
+import com.zuehlke.securesoftwaredevelopment.service.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
@@ -14,9 +14,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final DatabaseAuthenticationProvider databaseAuthenticationProvider;
+    private final UserDetailsServiceImpl userDetailsService;
 
-    public SecurityConfig(DatabaseAuthenticationProvider databaseAuthenticationProvider) {
+    public SecurityConfig(DatabaseAuthenticationProvider databaseAuthenticationProvider, UserDetailsServiceImpl userDetailsService) {
         this.databaseAuthenticationProvider = databaseAuthenticationProvider;
+        this.userDetailsService = userDetailsService;
     }
 
     @Override
@@ -31,19 +33,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .loginProcessingUrl("/perform-login")
                 .defaultSuccessUrl("/cars")
-                .failureUrl("/login?error");
+                .failureUrl("/login?error")
+                .and()
+                .logout()
+                .logoutSuccessUrl("/login")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID");
 
         // We need this one in order to access h2-console
         http.headers().frameOptions().sameOrigin();
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) {
-        auth.authenticationProvider(databaseAuthenticationProvider);
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService);
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new PlainTextPasswordEncoder();
     }
 }
