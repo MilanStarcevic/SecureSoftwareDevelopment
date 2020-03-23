@@ -44,7 +44,8 @@ public class DatabaseAuthenticationProvider implements AuthenticationProvider {
         if (success) {
             List<GrantedAuthority> grantedAuthorities = getGrantedAuthorities(username);
             LOG.info("User '{}' has grantedAuthorities '{}'", username, grantedAuthorities);
-            return new UsernamePasswordAuthenticationToken(username, password, grantedAuthorities);
+            User user = new User(1, "petar", "asd");
+            return new UsernamePasswordAuthenticationToken(user, password, grantedAuthorities);
         }
 
         /*

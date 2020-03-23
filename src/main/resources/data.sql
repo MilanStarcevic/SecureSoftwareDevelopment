@@ -41,7 +41,8 @@ values (1, 'CAR_LIST_VIEW'),
        (10, 'USER_SEARCH'),
        (11, 'USER_PROMOTE_TO_SELLER'),
        (12, 'OWN_PROFILE_VIEW'),
-       (13, 'OWN_PROFILE_EDIT');
+       (13, 'OWN_PROFILE_EDIT'),
+       (14, 'CAR_WHOLESALE_PRICE_VIEW');
 
 insert into role_to_permissions(roleId, permissionId)
 values (1, 7);

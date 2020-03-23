@@ -40,9 +40,7 @@
             </div>
         </form>
     </div>
-    <div sec:authorize="hasAuthority('CAN_BUY_CAR')" class="mt-2 mb-2">
-        <a th:href="@{'/buy-car/' + ${car.id}}">Buy Car</a>
-    </div>
+    <a th:href="@{'/buy-car/' + ${car.id}}">Buy Car</a>
     <h2>Car comments</h2>
     <div class="form-group" th:each="comment,iter : ${comments}">
         <b th:text="${comment.personName}"></b>
