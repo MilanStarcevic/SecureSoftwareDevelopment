@@ -35,7 +35,7 @@
     <div class="mt-2 mb-2">
         <a th:href="@{'/buy-car/' + ${car.id}}">Buy Car</a>
     </div>
-    <h2>Car comments</h2>
+    <h2 id="car-comments">Car comments</h2>
     <div class="form-group" th:each="comment,iter : ${comments}">
         <b th:text="${comment.personName}"></b>
         <div class="form-control" th:id="${iter.index}" th:utext="${comment.comment}" disabled></div>
