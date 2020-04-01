@@ -83,16 +83,21 @@ public class PersonRepository {
         return new Person(id, firstName, lastName, personalNumber, address);
     }
 
-    public void update(Person person) {
-        String query = "UPDATE persons SET firstName = ?, lastName = ?, personalNumber = ?, address = ? where id = " + person.getId();
+    public void update(Person personUpdate) {
+        Person personFromDb = get(personUpdate.getId());
+        String query = "UPDATE persons SET firstName = ?, lastName = ?, personalNumber = ?, address = ? where id = " + personUpdate.getId();
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(query);
-             ) {
-            statement.setString(1, person.getFirstName());
-            statement.setString(2, person.getLastName());
-            statement.setString(3, person.getPersonalNumber());
-            statement.setString(4, person.getAddress());
+        ) {
+            String firstName = personUpdate.getFirstName() != null ? personUpdate.getFirstName() : personFromDb.getFirstName();
+            String lastName = personUpdate.getLastName() != null ? personUpdate.getLastName() : personFromDb.getLastName();
+            String personalNumber = personUpdate.getPersonalNumber() != null ? personUpdate.getPersonalNumber() : personFromDb.getPersonalNumber();
+            String address = personUpdate.getAddress() != null ? personUpdate.getAddress() : personFromDb.getAddress();
+            statement.setString(1, firstName);
+            statement.setString(2, lastName);
+            statement.setString(3, personalNumber);
+            statement.setString(4, address);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
