@@ -6,6 +6,6 @@
 * JAVA 8 Runtime
 * Node.js
 * GIT
-* OWASP ZAP
-* Docker (sa sonarqube image)
+* OWASP ZAP - za čas o alatima
+* Docker (sa sonarqube image) - za čas o alatima
 * IntelliJ Enterprise (sa studentskom licencom)
