@@ -1,6 +1,8 @@
 package com.zuehlke.securesoftwaredevelopment.repository;
 
 import com.zuehlke.securesoftwaredevelopment.domain.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -11,6 +13,8 @@ import java.sql.Statement;
 
 @Repository
 public class UserRepository {
+
+    private static final Logger LOG = LoggerFactory.getLogger(UserRepository.class);
 
     private DataSource dataSource;
 
