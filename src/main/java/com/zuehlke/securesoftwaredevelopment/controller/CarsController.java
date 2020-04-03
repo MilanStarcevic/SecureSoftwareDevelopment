@@ -4,6 +4,8 @@ import com.zuehlke.securesoftwaredevelopment.domain.*;
 import com.zuehlke.securesoftwaredevelopment.repository.CarRepository;
 import com.zuehlke.securesoftwaredevelopment.repository.CommentRepository;
 import com.zuehlke.securesoftwaredevelopment.repository.PersonRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,9 @@ import java.util.List;
 
 @Controller
 public class CarsController {
+
+    private static final Logger LOG = LoggerFactory.getLogger(CarsController.class);
+
     private CarRepository carRepository;
     private CommentRepository commentRepository;
     private PersonRepository userRepository;

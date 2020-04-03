@@ -4,6 +4,8 @@ import com.zuehlke.securesoftwaredevelopment.domain.Person;
 import com.zuehlke.securesoftwaredevelopment.domain.User;
 import com.zuehlke.securesoftwaredevelopment.repository.PersonRepository;
 import com.zuehlke.securesoftwaredevelopment.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,9 @@ import java.util.List;
 @Controller
 
 public class PersonsController {
+
+    private static final Logger LOG = LoggerFactory.getLogger(PersonsController.class);
+
     private final PersonRepository personRepository;
     private final UserRepository userRepository;
 

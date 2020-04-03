@@ -1,6 +1,8 @@
 package com.zuehlke.securesoftwaredevelopment.repository;
 
 import com.zuehlke.securesoftwaredevelopment.domain.Car;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -10,6 +12,8 @@ import java.util.List;
 
 @Repository
 public class CarRepository {
+
+    private static final Logger LOG = LoggerFactory.getLogger(CarRepository.class);
 
     private static final String CARS_TABLE = "cars";
     private DataSource dataSource;

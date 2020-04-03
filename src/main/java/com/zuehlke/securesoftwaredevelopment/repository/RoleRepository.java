@@ -1,6 +1,8 @@
 package com.zuehlke.securesoftwaredevelopment.repository;
 
 import com.zuehlke.securesoftwaredevelopment.domain.Role;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -13,6 +15,9 @@ import java.util.List;
 
 @Repository
 public class RoleRepository {
+
+    private static final Logger LOG = LoggerFactory.getLogger(RoleRepository.class);
+
     private final DataSource dataSource;
 
     public RoleRepository(DataSource dataSource) {
