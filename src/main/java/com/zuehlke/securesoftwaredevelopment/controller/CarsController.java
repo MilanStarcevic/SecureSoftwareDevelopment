@@ -64,7 +64,7 @@ public class CarsController {
     }
 
     @PostMapping("/cars/{id}")
-    public String editCar(@PathVariable("id") int id, Car car) {
+    public String editCar(@PathVariable("id") int id, Car car) throws SQLException {
         carRepository.update(id, car);
         return "redirect:/cars?id=" + id;
     }

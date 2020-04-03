@@ -36,7 +36,7 @@ public class CarRepository {
         return null;
     }
 
-    public void update(int id, Car carUpdate) {
+    public void update(int id, Car carUpdate) throws SQLException {
         Car carFromDb = findById(String.valueOf(id));
         String sqlQuery = "UPDATE cars SET price = ?, wholesalePrice = ?, model = ?, manufacturer = ? WHERE id=" + id;
         try (Connection connection = dataSource.getConnection();
@@ -50,8 +50,6 @@ public class CarRepository {
             statement.setString(3, model);
             statement.setString(4, manufacturer);
             statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
