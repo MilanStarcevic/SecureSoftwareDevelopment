@@ -32,7 +32,7 @@ public class PersonRepository {
         return personList;
     }
 
-    public List<Person> search(String searchTerm) {
+    public List<Person> search(String searchTerm) throws SQLException {
         List<Person> personList = new ArrayList<>();
         String query = "SELECT id, firstName, lastName, personalNumber, address FROM persons WHERE UPPER(firstName) like UPPER('%" + searchTerm + "%')" +
                 " OR UPPER(lastName) like UPPER('%" + searchTerm + "%')";
@@ -42,8 +42,6 @@ public class PersonRepository {
             while (rs.next()) {
                 personList.add(createPersonFromResultSet(rs));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return personList;
     }
