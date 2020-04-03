@@ -1,9 +1,11 @@
 package com.zuehlke.securesoftwaredevelopment.controller;
 
 import com.zuehlke.securesoftwaredevelopment.domain.Person;
+import com.zuehlke.securesoftwaredevelopment.domain.User;
 import com.zuehlke.securesoftwaredevelopment.repository.PersonRepository;
 import com.zuehlke.securesoftwaredevelopment.repository.UserRepository;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+
 public class PersonsController {
     private final PersonRepository personRepository;
     private final UserRepository userRepository;
@@ -23,6 +26,13 @@ public class PersonsController {
     @GetMapping("/persons/{id}")
     public String person(@PathVariable int id, Model model) {
         model.addAttribute("person", personRepository.get(id));
+        return "person";
+    }
+
+    @GetMapping("/myprofile")
+    public String self(Model model, Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        model.addAttribute("person", personRepository.get(user.getId()));
         return "person";
     }
 
