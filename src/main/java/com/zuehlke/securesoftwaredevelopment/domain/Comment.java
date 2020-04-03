@@ -5,7 +5,10 @@ public class Comment {
     private Integer userId;
     private String comment;
 
-    public Comment(int carId, int userId, String comment) {
+    public Comment() {
+    }
+
+    public Comment(int carId, Integer userId, String comment) {
         this.carId = carId;
         this.userId = userId;
         this.comment = comment;
@@ -19,11 +22,11 @@ public class Comment {
         this.carId = carId;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 

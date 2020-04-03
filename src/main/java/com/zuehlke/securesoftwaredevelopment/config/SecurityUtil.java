@@ -12,6 +12,6 @@ public class SecurityUtil {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         boolean authorized = authorities.contains(new SimpleGrantedAuthority(permission));
-        return true;
+        return authorized;
     }
 }

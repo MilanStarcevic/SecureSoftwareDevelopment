@@ -42,25 +42,16 @@ public class DatabaseAuthenticationProvider implements AuthenticationProvider {
 
         boolean success = validCredentials(username, password);
         if (success) {
-            List<GrantedAuthority> grantedAuthorities = getGrantedAuthorities(username);
+            User user = userRepository.findByUsername(username);
+            List<GrantedAuthority> grantedAuthorities = getGrantedAuthorities(user);
             LOG.info("User '{}' has grantedAuthorities '{}'", username, grantedAuthorities);
-            User user = new User(1, "petar", "asd");
             return new UsernamePasswordAuthenticationToken(user, password, grantedAuthorities);
         }
 
-        /*
-        1. Napravi bazu sa rolama
-        2. Povezi sa userima
-        3. Iz repo ucitaj usere i njihove role
-        4. Istrazi povezivanje rola i premisija
-        5. Istrazi anotacije koje treba koristiti za primenu permisija
-        6. Istrazi u Thymyleaf kako primeniti permisije na UI
-         */
         throw new BadCredentialsException(String.format(PASSWORD_WRONG_MESSAGE, username, password));
     }
 
-    private List<GrantedAuthority> getGrantedAuthorities(String username) {
-        User user = userRepository.findByUsername(username);
+    private List<GrantedAuthority> getGrantedAuthorities(User user) {
         List<Permission> permissions = permissionService.get(user.getId());
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         for (Permission permission : permissions) {
