@@ -1,5 +1,6 @@
 package com.zuehlke.securesoftwaredevelopment.controller;
 
+import com.zuehlke.securesoftwaredevelopment.config.AuditLogger;
 import com.zuehlke.securesoftwaredevelopment.domain.*;
 import com.zuehlke.securesoftwaredevelopment.repository.CarRepository;
 import com.zuehlke.securesoftwaredevelopment.repository.CommentRepository;
@@ -18,6 +19,7 @@ import java.util.List;
 public class CarsController {
 
     private static final Logger LOG = LoggerFactory.getLogger(CarsController.class);
+    private static final AuditLogger auditLogger = AuditLogger.getAuditLogger(PersonRepository.class);
 
     private CarRepository carRepository;
     private CommentRepository commentRepository;
