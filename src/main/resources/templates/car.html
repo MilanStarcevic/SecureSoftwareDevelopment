@@ -35,7 +35,7 @@
                        th:value="${car.wholesalePrice}"
                        th:disabled="${not #authorization.expression('hasAuthority(''CAR_DETAILS_EDIT'')')}">
             </div>
-            <div sec:authorize="hasAuthority('CAR_DETAILS_EDIT')">
+            <div>
                 <button type="submit" class="btn btn-primary">Save</button>
             </div>
         </form>

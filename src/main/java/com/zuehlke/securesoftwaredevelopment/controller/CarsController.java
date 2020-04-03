@@ -4,7 +4,6 @@ import com.zuehlke.securesoftwaredevelopment.domain.*;
 import com.zuehlke.securesoftwaredevelopment.repository.CarRepository;
 import com.zuehlke.securesoftwaredevelopment.repository.CommentRepository;
 import com.zuehlke.securesoftwaredevelopment.repository.PersonRepository;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -60,7 +59,6 @@ public class CarsController {
     }
 
     @PostMapping("/cars/{id}")
-    @Secured("CAR_DETAILS_EDIT")
     public String editCar(@PathVariable("id") int id, Car car) {
         carRepository.update(id, car);
         return "redirect:/cars?id=" + id;
