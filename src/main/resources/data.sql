@@ -45,4 +45,4 @@ values (1, 'CAR_LIST_VIEW'),
        (14, 'CAR_WHOLESALE_PRICE_VIEW');
 
 insert into role_to_permissions(roleId, permissionId)
-values (1, 7);
+values (1, 1), (2, 1);
