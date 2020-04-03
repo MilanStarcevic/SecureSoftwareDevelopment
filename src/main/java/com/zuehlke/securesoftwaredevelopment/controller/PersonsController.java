@@ -46,7 +46,7 @@ public class PersonsController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/persons")
+    @PostMapping("/update-person")
     public String updatePerson(Person person) {
         personRepository.update(person);
         return "redirect:/persons/" + person.getId();

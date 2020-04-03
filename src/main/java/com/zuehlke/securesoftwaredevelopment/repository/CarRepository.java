@@ -32,14 +32,19 @@ public class CarRepository {
         return null;
     }
 
-    public void update(int id, Car car) {
+    public void update(int id, Car carUpdate) {
+        Car carFromDb = findById(String.valueOf(id));
         String sqlQuery = "UPDATE cars SET price = ?, wholesalePrice = ?, model = ?, manufacturer = ? WHERE id=" + id;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
-            statement.setDouble(1, car.getPrice());
-            statement.setDouble(2, car.getWholesalePrice());
-            statement.setString(3, car.getModel());
-            statement.setString(4, car.getManufacturer());
+            Double price = carUpdate.getPrice() != null ? carUpdate.getPrice() : carFromDb.getPrice();
+            Double wholesalePrice = carUpdate.getWholesalePrice() != null ? carUpdate.getWholesalePrice() : carFromDb.getWholesalePrice();
+            String model = carUpdate.getModel() != null ? carUpdate.getModel() : carFromDb.getModel();
+            String manufacturer = carUpdate.getManufacturer() != null ? carUpdate.getManufacturer() : carFromDb.getManufacturer();
+            statement.setDouble(1, price);
+            statement.setDouble(2, wholesalePrice);
+            statement.setString(3, model);
+            statement.setString(4, manufacturer);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
