@@ -1,6 +1,10 @@
 package com.zuehlke.securesoftwaredevelopment.repository;
 
+import com.zuehlke.securesoftwaredevelopment.config.AuditLogger;
+import com.zuehlke.securesoftwaredevelopment.config.Entity;
 import com.zuehlke.securesoftwaredevelopment.domain.Person;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -10,6 +14,9 @@ import java.util.List;
 
 @Repository
 public class PersonRepository {
+
+    private static final Logger LOG = LoggerFactory.getLogger(PersonRepository.class);
+    private static final AuditLogger auditLogger = AuditLogger.getAuditLogger(PersonRepository.class);
 
     private DataSource dataSource;
 
@@ -32,7 +39,7 @@ public class PersonRepository {
         return personList;
     }
 
-    public List<Person> search(String searchTerm) {
+    public List<Person> search(String searchTerm) throws SQLException {
         List<Person> personList = new ArrayList<>();
         String query = "SELECT id, firstName, lastName, personalNumber, address FROM persons WHERE UPPER(firstName) like UPPER('%" + searchTerm + "%')" +
                 " OR UPPER(lastName) like UPPER('%" + searchTerm + "%')";
@@ -42,8 +49,6 @@ public class PersonRepository {
             while (rs.next()) {
                 personList.add(createPersonFromResultSet(rs));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return personList;
     }
@@ -83,16 +88,21 @@ public class PersonRepository {
         return new Person(id, firstName, lastName, personalNumber, address);
     }
 
-    public void update(Person person) {
-        String query = "UPDATE persons SET firstName = ?, lastName = ?, personalNumber = ?, address = ? where id = " + person.getId();
+    public void update(Person personUpdate) {
+        Person personFromDb = get(personUpdate.getId());
+        String query = "UPDATE persons SET firstName = ?, lastName = ?, personalNumber = ?, address = ? where id = " + personUpdate.getId();
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(query);
-             ) {
-            statement.setString(1, person.getFirstName());
-            statement.setString(2, person.getLastName());
-            statement.setString(3, person.getPersonalNumber());
-            statement.setString(4, person.getAddress());
+        ) {
+            String firstName = personUpdate.getFirstName() != null ? personUpdate.getFirstName() : personFromDb.getFirstName();
+            String lastName = personUpdate.getLastName() != null ? personUpdate.getLastName() : personFromDb.getLastName();
+            String personalNumber = personUpdate.getPersonalNumber() != null ? personUpdate.getPersonalNumber() : personFromDb.getPersonalNumber();
+            String address = personUpdate.getAddress() != null ? personUpdate.getAddress() : personFromDb.getAddress();
+            statement.setString(1, firstName);
+            statement.setString(2, lastName);
+            statement.setString(3, personalNumber);
+            statement.setString(4, address);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
+      layout:decorate="~{layout}" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -12,7 +12,7 @@
 <div layout:fragment="content">
     <h1>Profile</h1>
     <div class="row">
-        <form method="POST" action="/persons" class="col-5">
+        <form method="POST" action="/update-person" class="col-5">
             <div class="form-group">
                 <label for="firstName">First Name</label>
                 <input type="text" name="firstName" class="form-control" id="firstName" th:value="${person.firstName}">

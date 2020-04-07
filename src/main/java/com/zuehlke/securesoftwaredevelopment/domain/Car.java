@@ -2,12 +2,12 @@ package com.zuehlke.securesoftwaredevelopment.domain;
 
 public class Car {
     private Integer id;
-    private double price;
-    private double wholesalePrice;
+    private Double price;
+    private Double wholesalePrice;
     private String model;
     private String manufacturer;
 
-    public Car(Integer id, double price, double wholesalePrice, String model, String manufacturer) {
+    public Car(Integer id, Double price, Double wholesalePrice, String model, String manufacturer) {
         this.id = id;
         this.price = price;
         this.wholesalePrice = wholesalePrice;
@@ -23,19 +23,19 @@ public class Car {
         this.id = id;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public double getWholesalePrice() {
+    public Double getWholesalePrice() {
         return wholesalePrice;
     }
 
-    public void setWholesalePrice(double wholesalePrice) {
+    public void setWholesalePrice(Double wholesalePrice) {
         this.wholesalePrice = wholesalePrice;
     }
 

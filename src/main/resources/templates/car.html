@@ -19,7 +19,8 @@
             </div>
             <div class="form-group">
                 <label for="manufacturer">Manufacturer</label>
-                <input type="text" id="manufacturer" name="manufacturer" class="form-control" th:value="${car.manufacturer}">
+                <input type="text" id="manufacturer" name="manufacturer" class="form-control"
+                       th:value="${car.manufacturer}">
             </div>
             <div class="form-group">
                 <label for="price">Price</label>
@@ -27,15 +28,18 @@
             </div>
             <div class="form-group">
                 <label for="wholesalePrice">Wholesale Price</label>
-                <input type="text" id="wholesalePrice" name="wholesalePrice" class="form-control" th:value="${car.wholesalePrice}">
+                <input type="text" id="wholesalePrice" name="wholesalePrice" class="form-control"
+                       th:value="${car.wholesalePrice}">
             </div>
-            <button type="submit" class="btn btn-primary">Save</button>
+            <div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
         </form>
     </div>
     <div sec:authorize="hasAuthority('CAN_BUY_CAR')" class="mt-2 mb-2">
         <a th:href="@{'/buy-car/' + ${car.id}}">Buy Car</a>
     </div>
-    <h2>Car comments</h2>
+    <h2 id="car-comments">Car comments</h2>
     <div class="form-group" th:each="comment,iter : ${comments}">
         <b th:text="${comment.personName}"></b>
         <div class="form-control" th:id="${iter.index}" th:utext="${comment.comment}" disabled></div>
@@ -51,7 +55,7 @@
     </script>
 
     <script>
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function () {
             document.getElementById("createComment").addEventListener("click", function () {
                 const comment = document.getElementById("addComment").value;
 
@@ -64,7 +68,9 @@
                     headers: {
                         'Content-Type': 'application/json'
                     }
-                }).then(function() { window.location.reload(); });
+                }).then(function () {
+                    window.location.reload();
+                });
             });
         });
     </script>

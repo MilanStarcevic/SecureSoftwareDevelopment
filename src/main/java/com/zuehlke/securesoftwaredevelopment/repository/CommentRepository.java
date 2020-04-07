@@ -1,18 +1,21 @@
 package com.zuehlke.securesoftwaredevelopment.repository;
 
 import com.zuehlke.securesoftwaredevelopment.domain.Comment;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class CommentRepository {
+
+    private static final Logger LOG = LoggerFactory.getLogger(CommentRepository.class);
+
+
     private DataSource dataSource;
 
     public CommentRepository(DataSource dataSource) {
@@ -20,13 +23,15 @@ public class CommentRepository {
     }
 
     public void create(Comment comment) {
-        String query = "insert into comments(carId, userId, comment) " +
-                "values (" + comment.getCarId() + ", " + comment.getUserId() + ", '" + comment.getComment() + "')";
+        String query = "insert into comments(carId, userId, comment) values (?, ?, ?)";
 
         try (Connection connection = dataSource.getConnection();
-             Statement statement = connection.createStatement();
+             PreparedStatement statement = connection.prepareStatement(query);
         ) {
-            statement.executeUpdate(query);
+            statement.setInt(1, comment.getCarId());
+            statement.setInt(2, comment.getUserId());
+            statement.setString(3, comment.getComment());
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
