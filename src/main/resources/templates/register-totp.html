@@ -27,7 +27,10 @@
     </div>
 
     <script type="text/javascript">
-        new QRCode(document.getElementById("qrcode"), document.getElementById("totpUrl").value);
+        const qrCodeTargetElement = document.getElementById("qrcode");
+        const totpUrl = document.getElementById("totpUrl").value;
+
+        new QRCode(qrCodeTargetElement, totpUrl);
     </script>
 </div>
 </div>

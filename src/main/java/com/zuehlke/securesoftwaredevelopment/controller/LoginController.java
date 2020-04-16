@@ -28,13 +28,15 @@ public class LoginController {
     }
 
     @GetMapping("/register-totp")
-    public String showRegisterTotp(Model model) {
+    public String showRegisterTotp(Model model, Authentication authentication) {
         GoogleAuthenticator gAuth = new GoogleAuthenticator();
-        final GoogleAuthenticatorKey key = gAuth.createCredentials();
-        final String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        String totpUrl = GoogleAuthenticatorQRGenerator.getOtpAuthTotpURL(username, username, key);
+        final GoogleAuthenticatorKey key = gAuth.createCredentials(); // TOTP key
         model.addAttribute("totpKey", key.getKey());
+
+        // Used for QR Code
+        final HashedUser user = (HashedUser) authentication.getPrincipal();;
+        String totpUrl = GoogleAuthenticatorQRGenerator.getOtpAuthTotpURL("Insecure Car Store", user.getUsername(), key);
         model.addAttribute("totpUrl", totpUrl);
 
         return "register-totp";
