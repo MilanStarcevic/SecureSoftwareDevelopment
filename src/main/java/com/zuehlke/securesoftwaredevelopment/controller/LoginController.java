@@ -3,7 +3,9 @@ package com.zuehlke.securesoftwaredevelopment.controller;
 import com.warrenstrange.googleauth.GoogleAuthenticator;
 import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
 import com.warrenstrange.googleauth.GoogleAuthenticatorQRGenerator;
+import com.zuehlke.securesoftwaredevelopment.domain.HashedUser;
 import com.zuehlke.securesoftwaredevelopment.repository.HashedUserRepository;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,9 +43,9 @@ public class LoginController {
     }
 
     @PostMapping("/register-totp")
-    public String registerTotp(@RequestParam() String totpKey, Model model) {
-        final String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        repository.saveTotpKey(username, totpKey);
+    public String registerTotp(@RequestParam() String totpKey, Model model, Authentication authentication) {
+        final HashedUser user = (HashedUser) authentication.getPrincipal();
+        repository.saveTotpKey(user.getUsername(), totpKey);
         model.addAttribute("registered", true);
         return "register-totp";
     }

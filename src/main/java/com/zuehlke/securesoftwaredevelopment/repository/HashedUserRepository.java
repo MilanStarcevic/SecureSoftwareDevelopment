@@ -29,7 +29,7 @@ public class HashedUserRepository {
                 String passwordHash = rs.getString(1);
                 String salt = rs.getString(2);
                 String totpKey = rs.getString(3);
-                return new HashedUser(passwordHash, salt, totpKey);
+                return new HashedUser(username, passwordHash, salt, totpKey);
             }
         } catch (SQLException e) {
             e.printStackTrace();
