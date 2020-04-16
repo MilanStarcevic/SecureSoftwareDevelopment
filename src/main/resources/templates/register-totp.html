@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Car Details</title>
+</head>
+<body>
+<div layout:fragment="content">
+<div class="d-flex flex-column justify-content-around align-items-center vh-100">
+    <form th:if="${registered == null}" class="d-flex flex-column justify-content-around" style="height: 120px" method="POST" action="/register-totp">
+        <div class="form-group">
+        <label for="totpKey">Enter this into Authenticator App</label>
+        <input type="text" id="totpKey" readonly="readonly" class="form-control" name="totpKey" th:value="${totpKey}">
+        <input type="hidden" id="totpUrl" disabled="disabled" class="form-control" name="totpUrl" th:value="${totpUrl}">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+        <div id="qrcode" class="mt-3"></div>
+
+    </form>
+    <div th:if="${registered != null}">
+        Saved second factor successfully
+    </div>
+
+    <script type="text/javascript">
+        const qrCodeTargetElement = document.getElementById("qrcode");
+        const totpUrl = document.getElementById("totpUrl").value;
+
+        new QRCode(qrCodeTargetElement, totpUrl);
+    </script>
+</div>
+</div>
+</body>
+</html>

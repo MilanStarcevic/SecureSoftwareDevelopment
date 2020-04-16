@@ -22,7 +22,7 @@ public class UserRepository {
         this.dataSource = dataSource;
     }
 
-    public User findByUsername(String username) {
+    public User findUser(String username) {
         String query = "SELECT id, username, password FROM users WHERE username='" + username + "'";
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement();
