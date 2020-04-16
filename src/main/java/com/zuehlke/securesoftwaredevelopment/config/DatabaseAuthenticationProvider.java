@@ -39,7 +39,7 @@ public class DatabaseAuthenticationProvider implements AuthenticationProvider {
 
         boolean success = validCredentials(username, password);
         if (success) {
-            User user = userRepository.findByUsername(username);
+            User user = userRepository.findUser(username);
             List<GrantedAuthority> grantedAuthorities = getGrantedAuthorities(user);
             return new UsernamePasswordAuthenticationToken(user, password, grantedAuthorities);
         }
