@@ -34,6 +34,9 @@ public class DatabaseAuthenticationProvider implements AuthenticationProvider {
         String username = authentication.getName();
         String password = authentication.getCredentials().toString();
 
+        Object details = authentication.getDetails();
+        String totp = details != null ? details.toString() : null;
+
         boolean success = validCredentials(username, password);
         if (success) {
             User user = userRepository.findByUsername(username);
