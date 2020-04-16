@@ -26,8 +26,6 @@ public class LoginController {
     public String showLoginForm() {
         return "login";
     }
-    // send totp to DatabaseAuthenticationProvider
-    // Check using https://github.com/wstrange/GoogleAuth
 
     @GetMapping("/register-totp")
     public String showRegisterTotp(Model model) {
