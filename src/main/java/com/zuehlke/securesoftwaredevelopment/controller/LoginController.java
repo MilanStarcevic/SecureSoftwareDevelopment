@@ -28,8 +28,9 @@ public class LoginController {
     }
 
     @PostMapping("/register-totp")
-    public String registerTotp(@RequestParam() String totpKey) {
+    public String registerTotp(@RequestParam() String totpKey, Model model) {
         // save totp to user table
-        return "login"; // change url
+        model.addAttribute("registered", true);
+        return "totp"; // change url
     }
 }
