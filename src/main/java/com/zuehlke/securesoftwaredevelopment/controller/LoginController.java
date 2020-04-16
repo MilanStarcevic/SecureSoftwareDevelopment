@@ -32,7 +32,7 @@ public class LoginController {
         final GoogleAuthenticatorKey key = gAuth.createCredentials();
 
         model.addAttribute("totpKey", key.getKey());
-        return "totp";
+        return "register-totp";
     }
 
     @PostMapping("/register-totp")
@@ -40,6 +40,6 @@ public class LoginController {
         final String username = SecurityContextHolder.getContext().getAuthentication().getName();
         repository.saveTotpKey(username, totpKey);
         model.addAttribute("registered", true);
-        return "totp";
+        return "register-totp";
     }
 }
