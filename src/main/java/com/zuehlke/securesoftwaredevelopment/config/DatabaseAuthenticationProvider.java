@@ -12,6 +12,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,7 @@ public class DatabaseAuthenticationProvider implements AuthenticationProvider {
         String password = authentication.getCredentials().toString();
 
         Object details = authentication.getDetails();
-        String totp = details != null ? details.toString() : null;
+        Integer totp = StringUtils.isEmpty(details) ? null : Integer.valueOf(details.toString());
 
         boolean success = validCredentials(username, password);
         if (success) {
