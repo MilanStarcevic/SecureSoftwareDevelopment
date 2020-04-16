@@ -1,6 +1,8 @@
 package com.zuehlke.securesoftwaredevelopment.repository;
 
 import com.zuehlke.securesoftwaredevelopment.domain.HashedUser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -8,6 +10,9 @@ import java.sql.*;
 
 @Repository
 public class HashedUserRepository {
+
+    private static final Logger LOG = LoggerFactory.getLogger(HashedUserRepository.class);
+
 
     private final DataSource dataSource;
 

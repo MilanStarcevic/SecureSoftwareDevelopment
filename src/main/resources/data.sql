@@ -19,3 +19,30 @@ values (423, 300, 'Civic', 'Honda'),
 
 insert into comments(carId, userId, comment)
 values (1, 1, 'Honda is great!');
+
+insert into roles(id, name)
+values (1, 'SELLER'),
+       (2, 'BUYER');
+
+insert into user_to_roles(userId, roleId)
+values (1, 1),
+       (2, 2);
+
+insert into permissions(id, name)
+values (1, 'CAR_LIST_VIEW'),
+       (2, 'CAR_SEARCH'),
+       (3, 'CAR_BUY'),
+       (4, 'COMMENT_VIEW'),
+       (5, 'COMMENT_ADD'),
+       (6, 'CAR_DETAILS_VIEW'),
+       (7, 'CAR_DETAILS_EDIT'),
+       (8, 'USER_PROFILE_VIEW'),
+       (9, 'USER_LIST_VIEW'),
+       (10, 'USER_SEARCH'),
+       (11, 'USER_PROMOTE_TO_SELLER'),
+       (12, 'OWN_PROFILE_VIEW'),
+       (13, 'OWN_PROFILE_EDIT'),
+       (14, 'CAR_WHOLESALE_PRICE_VIEW');
+
+insert into role_to_permissions(roleId, permissionId)
+values (1, 1), (2, 1);

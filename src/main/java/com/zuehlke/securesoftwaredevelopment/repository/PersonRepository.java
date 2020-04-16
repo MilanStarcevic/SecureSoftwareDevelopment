@@ -1,6 +1,10 @@
 package com.zuehlke.securesoftwaredevelopment.repository;
 
+import com.zuehlke.securesoftwaredevelopment.config.AuditLogger;
+import com.zuehlke.securesoftwaredevelopment.config.Entity;
 import com.zuehlke.securesoftwaredevelopment.domain.Person;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -10,6 +14,9 @@ import java.util.List;
 
 @Repository
 public class PersonRepository {
+
+    private static final Logger LOG = LoggerFactory.getLogger(PersonRepository.class);
+    private static final AuditLogger auditLogger = AuditLogger.getAuditLogger(PersonRepository.class);
 
     private DataSource dataSource;
 
@@ -32,7 +39,7 @@ public class PersonRepository {
         return personList;
     }
 
-    public List<Person> search(String searchTerm) {
+    public List<Person> search(String searchTerm) throws SQLException {
         List<Person> personList = new ArrayList<>();
         String query = "SELECT id, firstName, lastName, personalNumber, address FROM persons WHERE UPPER(firstName) like UPPER('%" + searchTerm + "%')" +
                 " OR UPPER(lastName) like UPPER('%" + searchTerm + "%')";
@@ -42,8 +49,6 @@ public class PersonRepository {
             while (rs.next()) {
                 personList.add(createPersonFromResultSet(rs));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return personList;
     }

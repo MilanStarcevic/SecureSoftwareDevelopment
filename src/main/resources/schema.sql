@@ -49,3 +49,25 @@ create table comments
     comment        varchar(500) NOT NULL,
     PRIMARY KEY (ID)
 );
+
+create table user_to_roles(
+    userId         int          NOT NULL,
+    roleId         int          NOT NULL
+);
+
+create table roles(
+    id             int          NOT NULL,
+    name           varchar(255) NOT NULL,
+    PRIMARY KEY (ID)
+);
+
+create table permissions(
+    id             int          NOT NULL,
+    name           varchar(255) NOT NULL,
+    PRIMARY KEY (ID)
+);
+
+create table role_to_permissions(
+    roleId         int          NOT NULL,
+    permissionId   int          NOT NULL
+);
