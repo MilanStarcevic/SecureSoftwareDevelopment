@@ -2,6 +2,7 @@ package com.zuehlke.securesoftwaredevelopment.controller;
 
 import com.warrenstrange.googleauth.GoogleAuthenticator;
 import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
+import com.warrenstrange.googleauth.GoogleAuthenticatorQRGenerator;
 import com.zuehlke.securesoftwaredevelopment.repository.HashedUserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -30,8 +31,12 @@ public class LoginController {
     public String showRegisterTotp(Model model) {
         GoogleAuthenticator gAuth = new GoogleAuthenticator();
         final GoogleAuthenticatorKey key = gAuth.createCredentials();
+        final String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
+        String totpUrl = GoogleAuthenticatorQRGenerator.getOtpAuthTotpURL(username, username, key);
         model.addAttribute("totpKey", key.getKey());
+        model.addAttribute("totpUrl", totpUrl);
+
         return "register-totp";
     }
 

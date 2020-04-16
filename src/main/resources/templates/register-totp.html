@@ -15,16 +15,19 @@
         <div class="form-group">
         <label for="totpKey">Enter this into Authenticator App</label>
         <input type="text" id="totpKey" readonly="readonly" class="form-control" name="totpKey" th:value="${totpKey}">
+        <input type="hidden" id="totpUrl" disabled="disabled" class="form-control" name="totpUrl" th:value="${totpUrl}">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
+
+        <div id="qrcode" class="mt-3"></div>
+
     </form>
     <div th:if="${registered != null}">
         Saved second factor successfully
     </div>
 
-    <div id="qrcode"></div>
     <script type="text/javascript">
-        new QRCode(document.getElementById("qrcode"), document.getElementById("qrcode").value);
+        new QRCode(document.getElementById("qrcode"), document.getElementById("totpUrl").value);
     </script>
 </div>
 </div>
