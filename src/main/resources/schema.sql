@@ -17,6 +17,7 @@ create table hashedUsers
     username varchar(255) not null,
     passwordHash varchar(64) not null,
     salt varchar(64) not null,
+    totpKey varchar(255) null,
     PRIMARY KEY (ID)
 );
 

@@ -12,8 +12,10 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Component
@@ -34,11 +36,14 @@ public class DatabaseAuthenticationProvider implements AuthenticationProvider {
         String username = authentication.getName();
         String password = authentication.getCredentials().toString();
 
+        Object details = authentication.getDetails();
+        Integer totp = StringUtils.isEmpty(details) ? null : Integer.valueOf(details.toString());
+
         boolean success = validCredentials(username, password);
         if (success) {
-            User user = userRepository.findByUsername(username);
-            List<GrantedAuthority> grantedAuthorities = getGrantedAuthorities(user);
-            return new UsernamePasswordAuthenticationToken(user, password, grantedAuthorities);
+            User user = userRepository.findUser(username);
+            // Ignore: List<GrantedAuthority> grantedAuthorities = getGrantedAuthorities(user);
+            return new UsernamePasswordAuthenticationToken(user, password, Collections.emptyList());
         }
 
         throw new BadCredentialsException(String.format(PASSWORD_WRONG_MESSAGE, username, password));
