@@ -71,3 +71,11 @@ create table role_to_permissions(
     roleId         int          NOT NULL,
     permissionId   int          NOT NULL
 );
+
+create table scheduled_services(
+     id             int          NOT NULL AUTO_INCREMENT,
+     personId       int          NOT NULL,
+     date           date         NOT NULL,
+     carId          int          NOT NULL,
+     PRIMARY KEY (ID)
+);
