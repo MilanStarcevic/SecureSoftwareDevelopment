@@ -4,10 +4,7 @@ import com.zuehlke.securesoftwaredevelopment.domain.HashedUser;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 @Repository
 public class HashedUserRepository {
@@ -19,18 +16,32 @@ public class HashedUserRepository {
     }
 
     public HashedUser findUser(String username) {
-        String sqlQuery = "select passwordHash, salt from hashedUsers where username = '" + username + "'";
+        String sqlQuery = "select passwordHash, salt, totpKey from hashedUsers where username = '" + username + "'";
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery(sqlQuery)) {
             if (rs.next()) {
                 String passwordHash = rs.getString(1);
                 String salt = rs.getString(2);
-                return new HashedUser(passwordHash, salt);
+                String totpKey = rs.getString(3);
+                return new HashedUser(passwordHash, salt, totpKey);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void saveTotpKey(String username, String totpKey) {
+        String sqlQuery = "update hashedUsers set totpKey = ? where username = ?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+            statement.setString(1, totpKey);
+            statement.setString(2, username);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

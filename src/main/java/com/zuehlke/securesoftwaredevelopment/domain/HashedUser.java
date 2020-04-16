@@ -3,10 +3,12 @@ package com.zuehlke.securesoftwaredevelopment.domain;
 public class HashedUser {
     private String passwordHash;
     private String salt;
+    private String totpKey;
 
-    public HashedUser(String passwordHash, String salt) {
+    public HashedUser(String passwordHash, String salt, String totpKey) {
         this.passwordHash = passwordHash;
         this.salt = salt;
+        this.totpKey = totpKey;
     }
 
     public String getPasswordHash() {
@@ -23,5 +25,13 @@ public class HashedUser {
 
     public void setSalt(String salt) {
         this.salt = salt;
+    }
+
+    public String getTotpKey() {
+        return totpKey;
+    }
+
+    public void setTotpKey(String totpKey) {
+        this.totpKey = totpKey;
     }
 }
