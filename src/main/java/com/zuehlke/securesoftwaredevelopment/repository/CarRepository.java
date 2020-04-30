@@ -40,17 +40,17 @@ public class CarRepository {
 
     public void update(int id, Car carUpdate) throws SQLException {
         Car carFromDb = findById(String.valueOf(id));
-        String sqlQuery = "UPDATE cars SET price = ?, wholesalePrice = ?, model = ?, manufacturer = ? WHERE id=" + id;
+        String manufacturer = carUpdate.getManufacturer() != null ? carUpdate.getManufacturer() : carFromDb.getManufacturer();
+
+        String sqlQuery = "UPDATE cars SET price = ?, wholesalePrice = ?, model = ?, manufacturer='" + manufacturer + "' WHERE id=" + id;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             Double price = carUpdate.getPrice() != null ? carUpdate.getPrice() : carFromDb.getPrice();
             Double wholesalePrice = carUpdate.getWholesalePrice() != null ? carUpdate.getWholesalePrice() : carFromDb.getWholesalePrice();
             String model = carUpdate.getModel() != null ? carUpdate.getModel() : carFromDb.getModel();
-            String manufacturer = carUpdate.getManufacturer() != null ? carUpdate.getManufacturer() : carFromDb.getManufacturer();
             statement.setDouble(1, price);
             statement.setDouble(2, wholesalePrice);
             statement.setString(3, model);
-            statement.setString(4, manufacturer);
             statement.executeUpdate();
         }
     }
