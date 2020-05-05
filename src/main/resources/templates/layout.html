@@ -38,7 +38,10 @@
                 <a class="nav-link" th:href="@{/persons}">Users</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/scheduled-services(columns='firstName,lastName,model,date')}">Service</a>
+                <a class="nav-link" th:href="@{/scheduled-services(columns='firstName,lastName,carModel,date')}">Services</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/schedule-service}">Schedule service</a>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">

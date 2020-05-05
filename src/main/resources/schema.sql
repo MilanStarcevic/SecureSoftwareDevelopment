@@ -76,7 +76,7 @@ create table scheduled_services(
      id             int          NOT NULL AUTO_INCREMENT,
      personId       int          NOT NULL,
      date           date         NOT NULL,
-     carId          int          NOT NULL,
+     carModel       varchar(255) NOT NULL,
      remark         varchar(255),
      PRIMARY KEY (ID)
 );

@@ -1,13 +1,11 @@
 package com.zuehlke.securesoftwaredevelopment.repository;
 
+import com.zuehlke.securesoftwaredevelopment.domain.ScheduleService;
 import com.zuehlke.securesoftwaredevelopment.domain.Service;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +20,7 @@ public class ServiceRepository {
 
     public List<Service> getScheduled(String columns) {
         List<Service> services = new ArrayList<>();
-        String sqlQuery = "SELECT ss.id, " + columns + " FROM scheduled_services ss INNER JOIN persons ON ss.personId = persons.id INNER JOIN cars ON ss.carId = cars.id";
+        String sqlQuery = "SELECT ss.id, " + columns + " FROM scheduled_services ss INNER JOIN persons ON ss.personId = persons.id";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             ResultSet rs = statement.executeQuery();
@@ -40,5 +38,19 @@ public class ServiceRepository {
             e.printStackTrace();
         }
         return services;
+    }
+
+    public void insertScheduledService(int userId, ScheduleService scheduleService) {
+        String sqlQuery = "insert into scheduled_services (personId, carModel, date, remark) values (?, ?, ?, ?)";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+            statement.setInt(1, userId);
+            statement.setString(2, scheduleService.getCarModel());
+            statement.setDate(3, Date.valueOf(scheduleService.getDate()));
+            statement.setString(4, scheduleService.getRemark());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

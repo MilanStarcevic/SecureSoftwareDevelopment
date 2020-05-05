@@ -17,10 +17,12 @@
             <label>First Name</label>
             <input type="checkbox" name="columns" value="lastName" th:checked="${#lists.contains(columns, 'lastName')}"/>
             <label>Last Name</label>
-            <input type="checkbox" name="columns" value="model" th:checked="${#lists.contains(columns, 'model')}"/>
-            <label>Model</label>
+            <input type="checkbox" name="columns" value="carModel" th:checked="${#lists.contains(columns, 'carModel')}"/>
+            <label>Car Model</label>
             <input type="checkbox" name="columns" value="date" th:checked="${#lists.contains(columns, 'date')}"/>
             <label>Date</label>
+            <input type="checkbox" name="columns" value="remark" th:checked="${#lists.contains(columns, 'remark')}"/>
+            <label>Remark</label>
             <button class="btn btn-primary" type="submit">Select columns</button>
         </div>
     </form>
@@ -29,12 +31,14 @@
         <tr>
             <th>ID</th>
             <th th:each="column: ${columns}" th:text="${column}"></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="service: ${scheduledServices}">
             <td th:text="${service.id}"></td>
-            <td th:each="property: ${service.properties}" th:text="${property}"></td>
+            <td th:each="property: ${service.properties}" th:utext="${property}"></td>
+            <td><a th:href="@{/confirm-service/{id}(id=${service.id})}">Confirm service</a></td>
         </tr>
         </tbody>
     </table>
