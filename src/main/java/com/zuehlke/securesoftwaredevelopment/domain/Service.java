@@ -1,12 +1,12 @@
 package com.zuehlke.securesoftwaredevelopment.domain;
 
-import java.util.Map;
+import java.util.List;
 
 public class Service {
     private final Integer id;
-    private final Map<String, String> properties;
+    private final List<String> properties;
 
-    public Service(Integer id, Map<String, String> properties) {
+    public Service(Integer id, List<String> properties) {
         this.id = id;
         this.properties = properties;
     }
@@ -15,7 +15,7 @@ public class Service {
         return id;
     }
 
-    public Map<String, String> getProperties() {
+    public List<String> getProperties() {
         return properties;
     }
 }

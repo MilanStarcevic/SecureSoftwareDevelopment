@@ -77,5 +77,6 @@ create table scheduled_services(
      personId       int          NOT NULL,
      date           date         NOT NULL,
      carId          int          NOT NULL,
+     remark         varchar(255),
      PRIMARY KEY (ID)
 );

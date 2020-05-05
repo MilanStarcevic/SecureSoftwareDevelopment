@@ -9,9 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public class ServiceRepository {
@@ -28,13 +26,13 @@ public class ServiceRepository {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             ResultSet rs = statement.executeQuery();
-            String[] columnNames = columns.split(",");
+            int columnCount = rs.getMetaData().getColumnCount();
             while (rs.next()) {
-                Map<String, String> properties = new HashMap<>();
+                List<String> properties = new ArrayList<>();
                 int id = rs.getInt(1);
-                for (String column : columnNames) {
-                    String value = rs.getString(column);
-                    properties.put(column, value);
+                for (int i = 2; i <= columnCount; i++) {
+                    String value = rs.getString(i);
+                    properties.add(value);
                 }
                 services.add(new Service(id, properties));
             }

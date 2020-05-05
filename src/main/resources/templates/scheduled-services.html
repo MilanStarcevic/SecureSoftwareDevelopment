@@ -11,7 +11,20 @@
 <body>
 <div layout:fragment="content">
     <h1>Scheduled services</h1>
-    <table>
+    <form class="mb-1" action="/scheduled-services" method="GET">
+        <div class="form-check">
+            <input type="checkbox" name="columns" value="firstName" th:checked="${#lists.contains(columns, 'firstName')}"/>
+            <label>First Name</label>
+            <input type="checkbox" name="columns" value="lastName" th:checked="${#lists.contains(columns, 'lastName')}"/>
+            <label>Last Name</label>
+            <input type="checkbox" name="columns" value="model" th:checked="${#lists.contains(columns, 'model')}"/>
+            <label>Model</label>
+            <input type="checkbox" name="columns" value="date" th:checked="${#lists.contains(columns, 'date')}"/>
+            <label>Date</label>
+            <button class="btn btn-primary" type="submit">Select columns</button>
+        </div>
+    </form>
+    <table class="table">
         <thead>
         <tr>
             <th>ID</th>
@@ -21,7 +34,7 @@
         <tbody>
         <tr th:each="service: ${scheduledServices}">
             <td th:text="${service.id}"></td>
-            <td th:each="column: ${columns}" th:text="${service.properties.get(column)}"></td>
+            <td th:each="property: ${service.properties}" th:text="${property}"></td>
         </tr>
         </tbody>
     </table>
