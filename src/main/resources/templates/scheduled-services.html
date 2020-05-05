@@ -18,7 +18,12 @@
             <th th:each="column: ${columns}" th:text="${column}"></th>
         </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+        <tr th:each="service: ${scheduledServices}">
+            <td th:text="${service.id}"></td>
+            <td th:each="column: ${columns}" th:text="${service.properties.get(column)}"></td>
+        </tr>
+        </tbody>
     </table>
 </div>
 </body>

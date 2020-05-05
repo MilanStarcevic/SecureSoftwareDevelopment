@@ -20,7 +20,8 @@ public class ServiceController {
     @GetMapping("/scheduled-services")
     public String showService(@RequestParam("columns") String columns, Model model) {
         List<Service> scheduledServices = serviceRepository.getScheduled(columns);
-        model.addAttribute("columns", columns.split(","));
+        String[] c = columns.split(",");
+        model.addAttribute("columns", c);
         model.addAttribute("scheduledServices", scheduledServices);
         return "scheduled-services";
     }
