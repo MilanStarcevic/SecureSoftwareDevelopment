@@ -21,6 +21,8 @@
             <label>Car Model</label>
             <input type="checkbox" name="columns" value="date" th:checked="${#lists.contains(columns, 'date')}"/>
             <label>Date</label>
+            <input type="checkbox" name="columns" value="time" th:checked="${#lists.contains(columns, 'time')}"/>
+            <label>Time</label>
             <input type="checkbox" name="columns" value="remark" th:checked="${#lists.contains(columns, 'remark')}"/>
             <label>Remark</label>
             <button class="btn btn-primary" type="submit">Select columns</button>
@@ -38,7 +40,7 @@
         <tr th:each="service: ${scheduledServices}">
             <td th:text="${service.id}"></td>
             <td th:each="property: ${service.properties}" th:utext="${property}"></td>
-            <td><a th:href="@{/confirm-service/{id}(id=${service.id})}">Confirm service</a></td>
+            <td><a th:href="@{/confirm-service-1(id=${service.id})}">Confirm service</a></td>
         </tr>
         </tbody>
     </table>

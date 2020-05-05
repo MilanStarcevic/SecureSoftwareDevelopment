@@ -2,6 +2,7 @@ package com.zuehlke.securesoftwaredevelopment.repository;
 
 import com.zuehlke.securesoftwaredevelopment.domain.ScheduleService;
 import com.zuehlke.securesoftwaredevelopment.domain.Service;
+import com.zuehlke.securesoftwaredevelopment.domain.ServiceTicket;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -48,6 +49,19 @@ public class ServiceRepository {
             statement.setString(2, scheduleService.getCarModel());
             statement.setDate(3, Date.valueOf(scheduleService.getDate()));
             statement.setString(4, scheduleService.getRemark());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateScheduledService(ServiceTicket serviceTicket) {
+        String sqlQuery = "update scheduled_services set ticketNumber = ?, time = ? where id = ?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+            statement.setString(1, serviceTicket.getTicketNumber().toString());
+            statement.setTime(2, Time.valueOf(serviceTicket.getTime() + ":00"));
+            statement.setInt(3, serviceTicket.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
