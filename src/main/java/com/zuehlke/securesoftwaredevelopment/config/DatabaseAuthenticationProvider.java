@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Component
@@ -42,8 +41,8 @@ public class DatabaseAuthenticationProvider implements AuthenticationProvider {
         boolean success = validCredentials(username, password);
         if (success) {
             User user = userRepository.findUser(username);
-            // Ignore: List<GrantedAuthority> grantedAuthorities = getGrantedAuthorities(user);
-            return new UsernamePasswordAuthenticationToken(user, password, Collections.emptyList());
+            List<GrantedAuthority> grantedAuthorities = getGrantedAuthorities(user);
+            return new UsernamePasswordAuthenticationToken(user, password, grantedAuthorities);
         }
 
         throw new BadCredentialsException(String.format(PASSWORD_WRONG_MESSAGE, username, password));

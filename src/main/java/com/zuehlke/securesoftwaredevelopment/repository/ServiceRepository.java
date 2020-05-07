@@ -21,7 +21,7 @@ public class ServiceRepository {
 
     public List<Service> getScheduled(String columns) {
         List<Service> services = new ArrayList<>();
-        String sqlQuery = "SELECT ss.id, " + columns + " FROM scheduled_services ss INNER JOIN persons ON ss.personId = persons.id";
+        String sqlQuery = "SELECT ss.id, ss.personId, " + columns + " FROM scheduled_services ss INNER JOIN persons ON ss.personId = persons.id";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             ResultSet rs = statement.executeQuery();
@@ -29,11 +29,12 @@ public class ServiceRepository {
             while (rs.next()) {
                 List<String> properties = new ArrayList<>();
                 int id = rs.getInt(1);
-                for (int i = 2; i <= columnCount; i++) {
+                int personId = rs.getInt(2);
+                for (int i = 3; i <= columnCount; i++) {
                     String value = rs.getString(i);
                     properties.add(value);
                 }
-                services.add(new Service(id, properties));
+                services.add(new Service(id, personId, properties));
             }
         } catch (SQLException e) {
             e.printStackTrace();
