@@ -42,8 +42,8 @@ public class ServiceRepository {
         return services;
     }
 
-    public void insertScheduledService(int userId, ScheduleService scheduleService) throws SQLException {
-        String sqlQuery = "insert into scheduled_services (personId, carModel, date, remark) values (?, ?, ?, ?)";
+    public void insertScheduledService(int userId, ScheduleService scheduleService, String tableName) throws SQLException {
+        String sqlQuery = "insert into " + tableName + " (personId, carModel, date, remark) values (?, ?, ?, ?)";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setInt(1, userId);
@@ -52,6 +52,10 @@ public class ServiceRepository {
             statement.setString(4, scheduleService.getRemark());
             statement.executeUpdate();
         }
+    }
+
+    public void insertScheduledService(int userId, ScheduleService scheduleService) throws SQLException {
+        insertScheduledService(userId, scheduleService, "scheduled_services");
     }
 
     public void updateScheduledService(ServiceTicket serviceTicket) throws SQLException {
