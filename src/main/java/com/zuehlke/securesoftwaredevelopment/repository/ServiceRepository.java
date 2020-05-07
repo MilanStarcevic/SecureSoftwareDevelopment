@@ -42,7 +42,7 @@ public class ServiceRepository {
         return services;
     }
 
-    public void insertScheduledService(int userId, ScheduleService scheduleService) {
+    public void insertScheduledService(int userId, ScheduleService scheduleService) throws SQLException {
         String sqlQuery = "insert into scheduled_services (personId, carModel, date, remark) values (?, ?, ?, ?)";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
@@ -51,12 +51,10 @@ public class ServiceRepository {
             statement.setDate(3, Date.valueOf(scheduleService.getDate()));
             statement.setString(4, scheduleService.getRemark());
             statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
-    public void updateScheduledService(ServiceTicket serviceTicket) {
+    public void updateScheduledService(ServiceTicket serviceTicket) throws SQLException {
         String sqlQuery = "update scheduled_services set ticketNumber = ?, time = ? where id = ?";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
@@ -64,8 +62,6 @@ public class ServiceRepository {
             statement.setTime(2, Time.valueOf(serviceTicket.getTime() + ":00"));
             statement.setInt(3, serviceTicket.getId());
             statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 }

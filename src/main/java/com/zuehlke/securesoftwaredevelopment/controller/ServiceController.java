@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpSession;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
 
@@ -41,7 +42,7 @@ public class ServiceController {
     }
 
     @PostMapping("/schedule-service")
-    public String scheduleService(ScheduleService scheduleService, Authentication authentication) {
+    public String scheduleService(ScheduleService scheduleService, Authentication authentication) throws SQLException {
         User user = (User) authentication.getPrincipal();
         serviceRepository.insertScheduledService(user.getId(), scheduleService);
         return "redirect:/";
@@ -72,7 +73,7 @@ public class ServiceController {
     }
 
     @PostMapping("/confirm-service-3")
-    public String confirmService3(HttpSession session) {
+    public String confirmService3(HttpSession session) throws SQLException {
         ServiceTicket serviceTicket = (ServiceTicket) session.getAttribute("SERVICE_TICKET");
         if (serviceTicket.getTime() == null) {
             throw new ResponseStatusException(
