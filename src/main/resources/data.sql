@@ -13,9 +13,9 @@ values (1, 'bruce', 'wayne', '1203992441123', 'NBG'),
        (2, 'Peter', 'Petigrew', '023348574839234', 'Diagon Alley'),
        (3, 'Tom', 'Riddle', '3234989332432', 'Bulgaria');
 
-insert into cars(price, wholesalePrice, model, manufacturer)
-values (423, 300, 'Civic', 'Honda'),
-       (350, 200, 'Focus', 'Ford');
+insert into cars(id, price, wholesalePrice, model, manufacturer)
+values (1, 423, 300, 'Civic', 'Honda'),
+       (2, 350, 200, 'Focus', 'Ford');
 
 insert into comments(carId, userId, comment)
 values (1, 1, 'Honda is great!');
@@ -45,4 +45,8 @@ values (1, 'CAR_LIST_VIEW'),
        (14, 'CAR_WHOLESALE_PRICE_VIEW');
 
 insert into role_to_permissions(roleId, permissionId)
-values (1, 1), (2, 1);
+values (1, 1),
+       (2, 1);
+
+insert into scheduled_services(personId, date, carModel)
+values (1, CURRENT_DATE, 'Mercedes S 560');
