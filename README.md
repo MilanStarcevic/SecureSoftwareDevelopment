@@ -1,6 +1,6 @@
 # Secure Software Development Kurs
 
-s## Potrebno je instalirati softver
+## Potrebno je instalirati softver
 
 * JAVA 8 SDK (https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot)
 * Node.js LTS (https://nodejs.org/en/download/)
