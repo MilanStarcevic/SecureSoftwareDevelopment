@@ -1,6 +1,8 @@
 # Secure Software Development Kurs
 
-## Potrebno je instalirati softver
+## Potrebnan softver
+
+Da biste pratili vežbe, potrebno je da instalirate sledeće softvere
 
 * JAVA 8 SDK (https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot)
 * Node.js LTS (https://nodejs.org/en/download/)
