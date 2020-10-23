@@ -4,8 +4,8 @@
 
 * JAVA 8 SDK
 * JAVA 8 Runtime
-* Node.js
-* GIT
-* OWASP ZAP - za čas o alatima
-* Docker (sa sonarqube image) - za čas o alatima
-* IntelliJ Enterprise (sa studentskom licencom)
+* Node.js LTS (https://nodejs.org/en/download/)
+* GIT (https://git-scm.com/downloads)
+* OWASP ZAP (https://www.zaproxy.org/)
+* SonarQube (https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-6.7.7.zip)
+* IntelliJ Ultimate (https://www.jetbrains.com/idea/download/#section=windows) i studentska licenca
