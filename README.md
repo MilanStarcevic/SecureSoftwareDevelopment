@@ -2,8 +2,8 @@
 
 ## Korišćeni softver
 
-* JAVA 8 SDK
-* JAVA 8 Runtime
+* JAVA 8 SDK (https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot)
+* JAVA 8 Runtime (https://www.java.com/en/download/)
 * Node.js LTS (https://nodejs.org/en/download/)
 * GIT (https://git-scm.com/downloads)
 * OWASP ZAP (https://www.zaproxy.org/)
