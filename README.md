@@ -1,6 +1,6 @@
 # Secure Software Development Kurs
 
-## Potrebnan softver
+## Potrenan softver
 
 Da biste pratili vežbe, potrebno je da instalirate sledeći softver
 
