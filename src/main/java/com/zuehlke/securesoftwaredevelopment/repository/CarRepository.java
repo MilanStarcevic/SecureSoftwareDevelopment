@@ -19,7 +19,7 @@ public class CarRepository {
     }
 
     public Car findById(String id) {
-        String sqlQuery = "SELECT id, price, wholesalePrice, model, manufacturer FROM cars WHERE id=" + id;
+        String sqlQuery = "SELECT id, price, wholesalePrice, model, manufacturer, year FROM cars WHERE id=" + id;
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery(sqlQuery)) {
@@ -33,13 +33,14 @@ public class CarRepository {
     }
 
     public void update(int id, Car car) {
-        String sqlQuery = "UPDATE cars SET price = ?, wholesalePrice = ?, model = ?, manufacturer = ? WHERE id=" + id;
+        String sqlQuery = "UPDATE cars SET price = ?, wholesalePrice = ?, model = ?, manufacturer = ?, year = ? WHERE id=" + id;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setDouble(1, car.getPrice());
             statement.setDouble(2, car.getWholesalePrice());
             statement.setString(3, car.getModel());
             statement.setString(4, car.getManufacturer());
+            statement.setInt(5, car.getYear());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -53,7 +54,7 @@ public class CarRepository {
     public List<Car> search(String searchQuery) throws SQLException {
         List<Car> cars = new ArrayList<>();
         String sqlQuery =
-                "SELECT id, price, wholesalePrice, model, manufacturer FROM cars WHERE UPPER(model) LIKE UPPER('%" + searchQuery + "%')" +
+                "SELECT id, price, wholesalePrice, model, manufacturer, year FROM cars WHERE UPPER(model) LIKE UPPER('%" + searchQuery + "%')" +
                         "OR UPPER(manufacturer) LIKE UPPER('%" + searchQuery + "%')";
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement();
@@ -67,7 +68,7 @@ public class CarRepository {
 
     public List<Car> getAll() {
         List<Car> cars = new ArrayList<>();
-        String sqlQuery = "SELECT id, price, wholesalePrice, model, manufacturer FROM " + CARS_TABLE;
+        String sqlQuery = "SELECT id, price, wholesalePrice, model, manufacturer, year FROM " + CARS_TABLE;
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery(sqlQuery)) {
@@ -86,6 +87,7 @@ public class CarRepository {
         double wholesalePrice = rs.getDouble(3);
         String model = rs.getString(4);
         String manufacturer = rs.getString(5);
-        return new Car(id, price, wholesalePrice, model, manufacturer);
+        int year = rs.getInt(6);
+        return new Car(id, price, wholesalePrice, model, manufacturer, year);
     }
 }

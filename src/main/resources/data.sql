@@ -13,9 +13,9 @@ values (1, 'bruce', 'wayne', '1203992441123', 'NBG'),
        (2, 'Peter', 'Petigrew', '023348574839234', 'Diagon Alley'),
        (3, 'Tom', 'Riddle', '3234989332432', 'Bulgaria');
 
-insert into cars(price, wholesalePrice, model, manufacturer)
-values (423, 300, 'Civic', 'Honda'),
-       (350, 200, 'Focus', 'Ford');
+insert into cars(price, wholesalePrice, model, manufacturer, year)
+values (423, 300, 'Civic', 'Honda', 2012),
+       (350, 200, 'Focus', 'Ford', 2018);
 
 insert into comments(carId, userId, comment)
 values (1, 1, 'Honda is great!');

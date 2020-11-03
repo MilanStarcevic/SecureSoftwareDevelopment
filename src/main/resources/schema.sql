@@ -37,6 +37,7 @@ create table cars
     wholesalePrice double       NOT NULL,
     model          varchar(255) NOT NULL,
     manufacturer   varchar(255) NOT NULL,
+    year           int          NOT NULL,
     PRIMARY KEY (ID)
 );
 
