@@ -6,13 +6,15 @@ public class Car {
     private double wholesalePrice;
     private String model;
     private String manufacturer;
+    private Integer manufactureYear;
 
-    public Car(Integer id, double price, double wholesalePrice, String model, String manufacturer) {
+    public Car(Integer id, double price, double wholesalePrice, String model, String manufacturer, Integer manufactureYear) {
         this.id = id;
         this.price = price;
         this.wholesalePrice = wholesalePrice;
         this.model = model;
         this.manufacturer = manufacturer;
+        this.manufactureYear = manufactureYear;
     }
 
     public Integer getId() {
@@ -53,5 +55,13 @@ public class Car {
 
     public void setManufacturer(String manufacturer) {
         this.manufacturer = manufacturer;
+    }
+
+    public Integer getManufactureYear() {
+        return manufactureYear;
+    }
+
+    public void setManufactureYear(Integer manufactureYear) {
+        this.manufactureYear = manufactureYear;
     }
 }
