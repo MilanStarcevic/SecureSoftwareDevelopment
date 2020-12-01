@@ -13,4 +13,4 @@ Za čas "Cross site request forgery (CSRF)"
 
 Za čas "Alati za statičku i dinamičku analizu"
 * OWASP ZAP (https://www.zaproxy.org/)
-* SonarQube (https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-6.7.7.zip)
+* SonarQube (https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-8.5.1.38104.zip)
