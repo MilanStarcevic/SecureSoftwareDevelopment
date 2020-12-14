@@ -77,9 +77,8 @@ create table scheduled_services(
      personId       int          NOT NULL,
      date           date         NOT NULL,
      carModel       varchar(255) NOT NULL,
-     remark         varchar(255),
-     ticketNumber   varchar(255),
-     time           time,
+     email          varchar(255) NOT NULL,
+     voucherId      int          NULL,
      PRIMARY KEY (ID)
 );
 
