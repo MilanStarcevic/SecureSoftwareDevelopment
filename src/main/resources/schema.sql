@@ -81,3 +81,10 @@ create table scheduled_services(
      voucherId      int          NULL,
      PRIMARY KEY (ID)
 );
+
+create table vouchers(
+     id                     int          NOT NULL AUTO_INCREMENT,
+     code                   varchar(255) NOT NULL,
+     discountPercentage     int          NOT NULL,
+     PRIMARY KEY (ID)
+);
