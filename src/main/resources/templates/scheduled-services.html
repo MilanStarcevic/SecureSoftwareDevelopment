@@ -33,7 +33,7 @@
             <td th:text="${service.carModel}"></td>
             <td th:text="${service.date}"></td>
             <td th:text="${service.voucher}"></td>
-            <td><a th:href="@{'/voucher?email=' + ${service.email}}">Send new voucher</a></td>
+            <td><a th:href="@{'/create-voucher?email=' + ${service.email}}">Send new voucher</a></td>
         </tr>
         </tbody>
     </table>

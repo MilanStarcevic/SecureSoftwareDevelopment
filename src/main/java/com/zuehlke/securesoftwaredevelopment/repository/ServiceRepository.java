@@ -49,7 +49,13 @@ public class ServiceRepository {
             statement.setString(2, scheduleService.getCarModel());
             statement.setDate(3, Date.valueOf(scheduleService.getDate()));
             statement.setString(4, scheduleService.getEmail());
-            statement.setInt(5, voucherId);
+            if (voucherId == null) {
+                statement.setNull(5, Types.INTEGER);
+
+            } else {
+                statement.setInt(5, voucherId);
+            }
+
             statement.executeUpdate();
         }
     }
