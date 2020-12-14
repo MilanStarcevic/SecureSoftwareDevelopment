@@ -33,4 +33,21 @@ public class VoucherRepository {
         }
         return null;
     }
+
+    public Voucher findById(String id) {
+        String query = "SELECT id, code, discountPercentage FROM vouchers WHERE id='" + id + "'";
+        try (Connection connection = dataSource.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet rs = statement.executeQuery(query)) {
+            if (rs.next()) {
+                int resultId = rs.getInt(1);
+                String code = rs.getString(2);
+                int discountPercentage = rs.getInt(3);
+                return new Voucher(resultId, code, discountPercentage);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
