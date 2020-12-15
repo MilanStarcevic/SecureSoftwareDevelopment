@@ -50,4 +50,16 @@ public class VoucherRepository {
         }
         return null;
     }
+
+
+    public void save(String code, int discountPercentage) {
+        String query = "INSERT INTO vouchers(code, discountPercentage) VALUES ('" + code + "', " + discountPercentage + ")";
+        try (Connection connection = dataSource.getConnection();
+             Statement statement = connection.createStatement();
+        ) {
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
