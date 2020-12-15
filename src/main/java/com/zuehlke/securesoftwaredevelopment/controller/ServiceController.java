@@ -28,8 +28,12 @@ public class ServiceController {
     @GetMapping("/scheduled-services")
     public String showServices(Model model) {
         List<Service> scheduledServices = serviceRepository.getScheduled();
-        
+
         for (Service service : scheduledServices) {
+            if (service.getVoucherId() == null) {
+                continue;
+            }
+
             Voucher voucher = voucherRepository.findById(service.getVoucherId());
             if (voucher != null) {
                 service.setVoucher(voucher.getCode());
