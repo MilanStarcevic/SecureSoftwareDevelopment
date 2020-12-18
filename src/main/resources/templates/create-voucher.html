@@ -20,7 +20,7 @@
     <script>
         const queryParams = new URLSearchParams(window.location.search);
         const email = queryParams.get('email');
-        document.getElementById('email-span').textContent = email;
+        document.getElementById('email-span').innerHTML = email;
         document.getElementById('email-input').value = email;
     </script>
 </div>
