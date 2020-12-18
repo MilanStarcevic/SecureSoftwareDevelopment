@@ -41,6 +41,15 @@ public class ServiceRepository {
         return services;
     }
 
+    public boolean serviceForPersonExists(Integer personId) throws SQLException {
+        String sqlQuery = "SELECT personId FROM scheduled_services WHERE personId=" + personId;
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+            ResultSet rs = statement.executeQuery();
+            return rs.next();
+        }
+    }
+
     public void insertScheduledService(int userId, ScheduleService scheduleService, Integer voucherId, String tableName) throws SQLException {
         String sqlQuery = "insert into " + tableName + " (personId, carModel, date, email, voucherId) values (?, ?, ?, ?, ?)";
         try (Connection connection = dataSource.getConnection();

@@ -50,8 +50,12 @@ public class ServiceController {
     }
 
     @PostMapping("/schedule-service")
-    public String scheduleService(ScheduleService scheduleService, Authentication authentication) throws SQLException {
+    public String scheduleService(ScheduleService scheduleService, Authentication authentication, Model model) throws SQLException {
         User user = (User) authentication.getPrincipal();
+        if (this.serviceRepository.serviceForPersonExists(user.getId())) {
+            model.addAttribute("alreadyScheduled", true);
+            return "schedule-service";
+        }
         Voucher voucher = this.voucherRepository.findByCode(scheduleService.getVoucher());
         Integer voucherId = voucher == null ? null : voucher.getId();
         serviceRepository.insertScheduledService(user.getId(), scheduleService, voucherId);

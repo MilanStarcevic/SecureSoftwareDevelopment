@@ -23,6 +23,7 @@
             <label for="voucher">Voucher</label>
             <input type="text" id="voucher" name="voucher" class="form-control" />
         </div>
+        <div class="alert alert-warning" th:if="${alreadyScheduled != null}">You already scheduled a service. You cannot schedule it twice!</div>
         <button type="submit" class="btn btn-primary">Schedule</button>
     </form>
 </div>
