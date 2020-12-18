@@ -38,8 +38,8 @@ public class Service {
         return date;
     }
 
-    public String getVoucherId() {
-        return voucher;
+    public Integer getVoucherId() {
+        return voucherId;
     }
 
     public Integer getId() {

@@ -34,8 +34,8 @@ public class VoucherRepository {
         return null;
     }
 
-    public Voucher findById(String id) {
-        String query = "SELECT id, code, discountPercentage FROM vouchers WHERE id='" + id + "'";
+    public Voucher findById(Integer id) {
+        String query = "SELECT id, code, discountPercentage FROM vouchers WHERE id=" + id;
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery(query)) {

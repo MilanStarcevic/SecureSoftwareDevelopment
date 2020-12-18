@@ -51,7 +51,6 @@ public class ServiceRepository {
             statement.setString(4, scheduleService.getEmail());
             if (voucherId == null) {
                 statement.setNull(5, Types.INTEGER);
-
             } else {
                 statement.setInt(5, voucherId);
             }
