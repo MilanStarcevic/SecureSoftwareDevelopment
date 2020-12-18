@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpSession;
+import java.sql.SQLException;
 
 @Controller
 public class VoucherController {
@@ -31,7 +32,7 @@ public class VoucherController {
     }
 
     @PostMapping("/send-voucher")
-    public String sendVoucher(@RequestParam("email") String email, @RequestParam("discountPercentage") String discountPercentage, HttpSession session) {
+    public String sendVoucher(@RequestParam("email") String email, @RequestParam("discountPercentage") String discountPercentage, HttpSession session) throws SQLException {
         String voucherCode = (String) session.getAttribute(SESSION_VOUCHER_CODE);
         if (voucherCode == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);

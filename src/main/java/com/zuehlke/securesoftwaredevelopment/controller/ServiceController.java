@@ -26,7 +26,7 @@ public class ServiceController {
     }
 
     @GetMapping("/scheduled-services")
-    public String showServices(Model model) {
+    public String showServices(Model model) throws SQLException {
         List<Service> scheduledServices = serviceRepository.getScheduled();
 
         for (Service service : scheduledServices) {

@@ -17,7 +17,7 @@ public class VoucherRepository {
         this.dataSource = dataSource;
     }
 
-    public Voucher findByCode(String code) {
+    public Voucher findByCode(String code) throws SQLException {
         String query = "SELECT id, code, discountPercentage FROM vouchers WHERE code='" + code + "'";
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement();
@@ -28,13 +28,11 @@ public class VoucherRepository {
                 int discountPercentage = rs.getInt(3);
                 return new Voucher(id, resultCode, discountPercentage);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return null;
     }
 
-    public Voucher findById(Integer id) {
+    public Voucher findById(Integer id) throws SQLException {
         String query = "SELECT id, code, discountPercentage FROM vouchers WHERE id=" + id;
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement();
@@ -45,21 +43,17 @@ public class VoucherRepository {
                 int discountPercentage = rs.getInt(3);
                 return new Voucher(resultId, code, discountPercentage);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return null;
     }
 
 
-    public void save(String code, int discountPercentage) {
+    public void save(String code, int discountPercentage) throws SQLException {
         String query = "INSERT INTO vouchers(code, discountPercentage) VALUES ('" + code + "', " + discountPercentage + ")";
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement();
         ) {
             statement.executeUpdate(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 }
