@@ -1,0 +1,28 @@
+<!doctype html >
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Create vaucher</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>Send voucher</h1>
+    <form action="/send-voucher" method="POST">
+        <div class="form-group">
+            <label for="discountPercentage">Discount in %</label>
+            <input type="number" min="1" max="100" id="discountPercentage" name="discountPercentage" placeholder="20">
+        </div>
+        <p>Voucher will be sent to: <span class="font-weight-bold" id="email-span"></span></p>
+        <input type="hidden" name="email" id="email-input">
+        <button type="submit" class="btn btn-primary">Confirm</button>
+    </form>
+    <script>
+        const queryParams = new URLSearchParams(window.location.search);
+        const email = queryParams.get('email');
+        document.getElementById('email-span').innerHTML = email;
+        document.getElementById('email-input').value = email;
+    </script>
+</div>
+</body>
+</html>

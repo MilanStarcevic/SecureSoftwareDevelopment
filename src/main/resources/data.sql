@@ -48,5 +48,5 @@ insert into role_to_permissions(roleId, permissionId)
 values (1, 1),
        (2, 1);
 
-insert into scheduled_services(personId, date, carModel)
-values (1, CURRENT_DATE, 'Mercedes S 560');
+insert into scheduled_services(personId, date, carModel, email)
+values (1, CURRENT_DATE, 'Mercedes S 560', 'bruce@gothmail.com');

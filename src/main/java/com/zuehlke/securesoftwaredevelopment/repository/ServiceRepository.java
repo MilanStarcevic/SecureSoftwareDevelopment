@@ -2,7 +2,6 @@ package com.zuehlke.securesoftwaredevelopment.repository;
 
 import com.zuehlke.securesoftwaredevelopment.domain.ScheduleService;
 import com.zuehlke.securesoftwaredevelopment.domain.Service;
-import com.zuehlke.securesoftwaredevelopment.domain.ServiceTicket;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -19,22 +18,22 @@ public class ServiceRepository {
         this.dataSource = dataSource;
     }
 
-    public List<Service> getScheduled(String columns) {
+    public List<Service> getScheduled() {
         List<Service> services = new ArrayList<>();
-        String sqlQuery = "SELECT ss.id, ss.personId, " + columns + " FROM scheduled_services ss INNER JOIN persons ON ss.personId = persons.id";
+        String sqlQuery = "SELECT ss.id, ss.personId, firstName, lastName, carModel, date, email, voucherId FROM scheduled_services ss INNER JOIN persons ON ss.personId = persons.id";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             ResultSet rs = statement.executeQuery();
-            int columnCount = rs.getMetaData().getColumnCount();
             while (rs.next()) {
-                List<String> properties = new ArrayList<>();
-                int id = rs.getInt(1);
-                int personId = rs.getInt(2);
-                for (int i = 3; i <= columnCount; i++) {
-                    String value = rs.getString(i);
-                    properties.add(value);
-                }
-                services.add(new Service(id, personId, properties));
+                services.add(new Service(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getInt(8)));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -42,30 +41,34 @@ public class ServiceRepository {
         return services;
     }
 
-    public void insertScheduledService(int userId, ScheduleService scheduleService, String tableName) throws SQLException {
-        String sqlQuery = "insert into " + tableName + " (personId, carModel, date, remark) values (?, ?, ?, ?)";
+    public boolean serviceForPersonExists(Integer personId) throws SQLException {
+        String sqlQuery = "SELECT personId FROM scheduled_services WHERE personId=" + personId;
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+            ResultSet rs = statement.executeQuery();
+            return rs.next();
+        }
+    }
+
+    public void insertScheduledService(int userId, ScheduleService scheduleService, Integer voucherId, String tableName) throws SQLException {
+        String sqlQuery = "insert into " + tableName + " (personId, carModel, date, email, voucherId) values (?, ?, ?, ?, ?)";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setInt(1, userId);
             statement.setString(2, scheduleService.getCarModel());
             statement.setDate(3, Date.valueOf(scheduleService.getDate()));
-            statement.setString(4, scheduleService.getRemark());
+            statement.setString(4, scheduleService.getEmail());
+            if (voucherId == null) {
+                statement.setNull(5, Types.INTEGER);
+            } else {
+                statement.setInt(5, voucherId);
+            }
+
             statement.executeUpdate();
         }
     }
 
-    public void insertScheduledService(int userId, ScheduleService scheduleService) throws SQLException {
-        insertScheduledService(userId, scheduleService, "scheduled_services");
-    }
-
-    public void updateScheduledService(ServiceTicket serviceTicket) throws SQLException {
-        String sqlQuery = "update scheduled_services set ticketNumber = ?, time = ? where id = ?";
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
-            statement.setString(1, serviceTicket.getTicketNumber().toString());
-            statement.setTime(2, Time.valueOf(serviceTicket.getTime() + ":00"));
-            statement.setInt(3, serviceTicket.getId());
-            statement.executeUpdate();
-        }
+    public void insertScheduledService(int userId, ScheduleService scheduleService, Integer voucherId) throws SQLException {
+        insertScheduledService(userId, scheduleService, voucherId, "scheduled_services");
     }
 }
