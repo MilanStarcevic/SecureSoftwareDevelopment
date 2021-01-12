@@ -1,7 +1,7 @@
 insert into users(id, username, password)
 values (1, 'bruce', 'wayne'),
        (2, 'peter', 'security_rules'),
-       (3, 'tom', 'guessmeifyoucan');
+           (3, 'tom', 'guessmeifyoucan');
 
 insert into hashedUsers(id, username, passwordHash, salt)
 values (1, 'bruce', 'qw8Uxa2fXimKruS9wYEm4qm3ZaIGw/hJNvOG3PemhoA=', 'MEI4PU5hcHhaRHZz'),
@@ -50,3 +50,5 @@ values (1, 1),
 
 insert into scheduled_services(personId, date, carModel, email)
 values (1, CURRENT_DATE, 'Mercedes S 560', 'bruce@gothmail.com');
+
+insert into vouchers (code, discountPercentage) values ('111', 85);
