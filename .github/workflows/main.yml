@@ -22,8 +22,11 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: start application
-        run: javac com/zuehlke/securesoftwaredevelopment/SecureSoftwareDevelopmentApplication.java
+      - name: maven build
+        run: mvn clean install
+      - name: maven deploy
+        run: mvn spring-boot:run
+
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: ZAP Scan
         uses: zaproxy/action-baseline@v0.6.1
