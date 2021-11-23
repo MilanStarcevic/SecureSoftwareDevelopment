@@ -11,6 +11,7 @@
           <option name="goals">
             <list>
               <option value="sonar:sonar" />
+              <option value="-Dsonar.login=0fb3fed3241200dbfcc6c7eb625e8d6f3846aaa7" />
             </list>
           </option>
           <option name="pomFileName" />
