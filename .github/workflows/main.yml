@@ -31,7 +31,7 @@ jobs:
       - name: maven build
         run: mvn clean install
       - name: maven deploy
-        run: mvn spring-boot:run
+        run: mvn spring-boot:run &
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: ZAP Scan
