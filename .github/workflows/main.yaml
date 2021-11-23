@@ -33,7 +33,7 @@ jobs:
       - name: maven deploy
         run: mvn spring-boot:run &
 
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+  # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: ZAP Scan
         uses: zaproxy/action-full-scan@v0.3.0
         with:
