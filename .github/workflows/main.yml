@@ -23,7 +23,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: change dir
-        run: projekat
+        run: cd projekat
       - name: maven build
         run: mvn clean install
       - name: maven deploy
