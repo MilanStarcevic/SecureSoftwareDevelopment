@@ -4,6 +4,7 @@
         <name>Default Context</name>
         <desc/>
         <inscope>true</inscope>
+        <incregexes>http://localhost:8080.*</incregexes>
         <tech>
             <include>Db</include>
             <include>Db.CouchDB</include>
