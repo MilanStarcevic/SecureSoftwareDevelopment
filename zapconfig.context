@@ -52,15 +52,15 @@
         <authentication>
             <type>2</type>
             <form>
-                <loginurl>http://localhost:8080/</loginurl>
+                <loginurl>http://localhost:8080/perform-login</loginurl>
                 <loginbody>username={%username%}&amp;password={%password%}</loginbody>
-                <loginpageurl>http://localhost:8080/login</loginpageurl>
+                <loginpageurl>http://localhost:8080/perform-login</loginpageurl>
             </form>
         </authentication>
         <users>
-            <user>0;true;YnJ1Y2U=;2;YnJ1Y2U=~d2F5bmU=~</user>
+            <user>14;true;YnJ1Y2U=;2;YnJ1Y2U=~d2F5bmU=~</user>
         </users>
-        <forceduser>0</forceduser>
+        <forceduser>14</forceduser>
         <session>
             <type>0</type>
         </session>
