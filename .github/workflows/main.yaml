@@ -6,9 +6,9 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master_rbs_dast ]
+    branches: [ DAST ]
   pull_request:
-    branches: [ master_rbs_dast ]
+    branches: [ DAST ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
